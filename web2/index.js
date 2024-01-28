@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const {sqlConnect, mongoConnect} = require('./utils/connection');
 const Users = require("./models/users.model")
-const NewUsers = require("./models/newuser.model")
 const Videos = require("./models/video.model")
 
 dotenv.config();
@@ -12,7 +11,6 @@ mongoConnect();
 
 const syncTables = async() => {
     await Users.sync()
-    await NewUsers.sync()
     await Videos.sync()
 }
 
