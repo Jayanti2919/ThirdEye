@@ -29,7 +29,7 @@ func NewBlock(user *User, prevBlockHash []byte, email string, userMap map[string
 		CurrHash:     []byte{},
 		User:         userMap,
 		Transaction:  nil,
-		Nonce:        0
+		Nonce:        0,
 	}
 
 	block.User[email] = user
