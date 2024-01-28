@@ -25,9 +25,15 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 
+	blockchainInstance := blockchain.NewBlockchain()
+
 	r.HandleFunc("/", handler)
-	r.HandleFunc("/user/createNewUser", routes.CreateNewUser).Methods("POST")
+	// r.HandleFunc("/user/createNewUser", routes.CreateNewUser).Methods("POST")
 	// r.HandleFunc("/user/generateWallet/{name}", routes.CreateNewUser).Methods("GET")
+
+	r.HandleFunc("/user/createNewUser", func(w http.ResponseWriter, r *http.Request) {
+		routes.CreateNewUser(w, r, blockchainInstance)
+	}).Methods("POST")
 
 	fmt.Println("Server is running on :8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
