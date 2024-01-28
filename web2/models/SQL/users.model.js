@@ -1,4 +1,4 @@
-const { sqlConnect } = require('../utils/connection');
+const { sqlConnect } = require('../../utils/connection');
 const { DataTypes } = require('sequelize');
 
 const connection = sqlConnect();
