@@ -17,6 +17,10 @@ import (
 // 	}
 // }
 
+func NewGenesisBlock() *Block {
+	return NewBlock(nil, []byte{}, "genesis", make(map[string]*User))
+}
+
 func NewBlock(user *User, prevBlockHash []byte, email string, userMap map[string]*User) *Block {
 	// transaction := createTransaction()
 	block := &Block{
@@ -25,8 +29,8 @@ func NewBlock(user *User, prevBlockHash []byte, email string, userMap map[string
 		CurrHash:     []byte{},
 		User:         userMap,
 		Transaction:  nil,
-		// 		//transaction
-		Nonce: 0}
+		Nonce:        0
+	}
 
 	block.User[email] = user
 	nonce := 0
