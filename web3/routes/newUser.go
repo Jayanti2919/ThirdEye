@@ -27,7 +27,7 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 		fmt.Fprintf(w, "Error in creating user: %s", e)
 	}
 
-	err := blockchainInstance.AddBlock(userInstance, email, privateKey)
+	err = blockchainInstance.AddBlock(userInstance, email, privateKey)
 
 	if err != nil {
 		fmt.Println("Error in creating new user: ", err)

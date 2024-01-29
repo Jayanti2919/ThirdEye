@@ -37,15 +37,16 @@ func createTransaction(from *ecdsa.PublicKey, to *ecdsa.PublicKey, amount int, R
 }
 
 func NewGenesisBlock() *Block {
-	return NewBlock(nil, []byte{}, "genesis", make(map[string]*User), nil)
+	block, _ := NewBlock(nil, []byte{}, "genesis", make(map[string]*User), nil)
+	return block
 }
 
-func NewBlock(user *User, prevBlockHash []byte, email string, prevUserMap map[string]*User, privateKey *ecdsa.PrivateKey) (*Block,error) {
+func NewBlock(user *User, prevBlockHash []byte, email string, prevUserMap map[string]*User, privateKey *ecdsa.PrivateKey) (*Block, error) {
 	var transaction *Transaction
 	if privateKey != nil {
 		r, s, err := signTransaction(privateKey, user)
-		if err!=nil{
-			return nil,error
+		if err != nil {
+			return nil, err
 		}
 		fmt.Println(reflect.TypeOf(r))
 		transaction = createTransaction(user.PublicKey, user.PublicKey, 0, *r, *s)
@@ -75,7 +76,7 @@ func NewBlock(user *User, prevBlockHash []byte, email string, prevUserMap map[st
 		nonce++
 	}
 	block.Nonce = nonce
-	return (block,nil)
+	return block, nil
 }
 
 func isValid(hash []byte) bool {
