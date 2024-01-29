@@ -12,6 +12,7 @@ const Users = connection.define('users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     channelName: {
         type: DataTypes.STRING,

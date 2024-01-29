@@ -9,6 +9,10 @@ const Videos = connection.define('videos', {
         type: DataTypes.STRING,
         primaryKey: true,
     },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     thumbnailHash: {
         type: DataTypes.STRING,
     },
