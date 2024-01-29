@@ -23,12 +23,12 @@ type User struct {
 }
 
 type Block struct {
-	Timestamp    int64
-	PreviousHash []byte
-	CurrHash     []byte
-	User         map[string]*User
-	Nonce        int
-	Transaction  []*Transaction
+	Timestamp       int64
+	PreviousHash    []byte
+	CurrHash        []byte
+	User            map[string]*User
+	Nonce           int
+	TransactionHash *Transaction
 }
 
 type Blockchain struct {
