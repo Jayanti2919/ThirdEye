@@ -16,7 +16,39 @@ router.route('/createUser').post(async(req, res)=>{
     }).catch((err)=>{
         console.log(err);
         res.send(err);
-    });
+    })
+})
+
+router.route('/getUser').get(async(req, res)=>{
+    const headers = req.headers;
+    await User.findOne({
+        where: {
+            email: headers.email
+        }
+    }).then((user)=>{
+        res.send(user);
+    }).catch((err)=>{
+        console.lof(err);
+        res.send(err);
+    })
+})
+
+router.route('/updateUser').put(async(req, res)=>{
+    const body = req.body;
+    await User.update({
+        channelName: body.channelName,
+        channelDesc: body.channelDesc,
+        profilePic: body.profilePic,
+    },{
+        where: {
+            email: body.email
+        }
+    }).then((user)=>{
+        res.send("Updated successfully");
+    }).catch((err)=>{
+        console.log(err);
+        res.send(err);
+    })
 })
 
 module.exports = router;
