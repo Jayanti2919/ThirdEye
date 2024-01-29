@@ -51,4 +51,25 @@ router.route('/updateUser').put(async(req, res)=>{
     })
 })
 
+router.route('/updateSubCount').put(async(req, res)=>{
+    const body = req.body;
+    sign = '+';
+    if (body.mode === "decrement") {
+        sign = '-';
+    }
+    const command = "subscriberCount " + sign + " 1"; 
+    await User.update({
+        subscriberCount: sequelize.literal(command)
+    },{
+        where: {
+            email: body.email
+        }
+    }).then((user)=>{
+        res.send("Updated successfully");
+    }).catch((err)=>{
+        console.log(err);
+        res.send(err);
+    })
+})
+
 module.exports = router;
