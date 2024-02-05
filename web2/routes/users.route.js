@@ -58,7 +58,7 @@ router.route('/updateSubCount').put(async(req, res)=>{
         sign = '-';
     }
     const command = "subscriberCount " + sign + " 1"; 
-    await User.update({
+    await User.update({ 
         subscriberCount: sequelize.literal(command)
     },{
         where: {
