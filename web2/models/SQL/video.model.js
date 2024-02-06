@@ -23,7 +23,7 @@ const Videos = connection.define('videos', {
         type: DataTypes.STRING,
     },
     tags: {
-        type: DataTypes.JSON,
+        type: DataTypes.ARRAY(DataTypes.STRING),
     },
     description: {
         type: DataTypes.STRING,
