@@ -43,5 +43,6 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 
 		fmt.Println("\n\n")
 	}
-	fmt.Fprintf(w, "Private key %s", privateKey)
+
+	fmt.Fprintf(w, "Private key %s", privateKey.D)
 }
