@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 const connection = sqlConnect();
 
-const Users = connection.define('users', {
+const RegistrationOTP = connection.define('registrationOTPs', {
     userId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -14,22 +14,13 @@ const Users = connection.define('users', {
         allowNull: false,
         unique: true,
     },
-    channelName: {
+    otp: {
         type: DataTypes.STRING,
-    },
-    channelDesc: {
-        type: DataTypes.STRING,
-    },
-    subscriberCount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    profilePic: {
-        type: DataTypes.STRING,
+        allowNull: false,
     },
 }, {
-    tableName: "users",
+    tableName: "registrationOTPs",
     timestamps: false,
 });
 
-module.exports = Users;
+module.exports = RegistrationOTP;
