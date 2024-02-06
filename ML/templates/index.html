@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+</head>
+<body>
+    <h1>Welcome to the Movie Recommendation System</h1>
+
+    <form action="/recommendations" method="post">
+        <label>Genres Watched:</label><br>
+        <input type="checkbox" name="genresWatched" value="Action"> Action
+        <input type="checkbox" name="genresWatched" value="Romance"> Romance
+        <input type="checkbox" name="genresWatched" value="Horror"> Horror
+        <!-- Add more genre checkboxes as needed -->
+
+        <br><br>
+
+        <label>Tags Watched:</label><br>
+        <input type="checkbox" name="tagsWatched" value="Funny"> Funny
+        <input type="checkbox" name="tagsWatched" value="Sad"> Sad
+        <input type="checkbox" name="tagsWatched" value="Sci_fi"> Sci-Fi
+        <!-- Add more tag checkboxes as needed -->
+
+        <br><br>
+
+        <label>Liked Videos:</label><br>
+        <input type="checkbox" name="likedVideos" value="101"> Video 101
+        <input type="checkbox" name="likedVideos" value="150"> Video 150
+        <input type="checkbox" name="likedVideos" value="200"> Video 200
+        <!-- Add more liked video checkboxes as needed -->
+
+        <br><br>
+
+        <input type="submit" value="Get Recommendations">
+    </form>
+</body>
+</html>
