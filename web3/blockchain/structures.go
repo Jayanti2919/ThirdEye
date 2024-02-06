@@ -18,8 +18,8 @@ type User struct {
 	Eyes      float64
 	Email     string
 	Address   string
-	Earnings  int
-	Spent     int
+	Earnings  float64
+	Spent     float64
 }
 
 type Block struct {

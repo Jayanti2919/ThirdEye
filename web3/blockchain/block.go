@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math/big"
 	"reflect"
@@ -87,4 +88,40 @@ func CalculateHash(block Block, nonce int) []byte {
 	data := []byte(fmt.Sprintf("%d%s%s%d", block.Timestamp, block.PreviousHash, block.User, nonce))
 	hash := sha256.Sum256(data)
 	return hash[:]
+}
+
+func addEyeBlock(fromEmail string, toEmail string, prevBlockHash []byte, prevUserMap map[string]*User, privateKey *ecdsa.PrivateKey, eyes float64) (*Block, error) {
+	userMap := make(map[string]*User)
+	for key, value := range prevUserMap {
+		userMap[key] = value
+	}
+	if userMap[fromEmail].Eyes < eyes {
+		return nil, errors.New("Not enough eyes")
+	}
+
+	userMap[fromEmail].Eyes -= eyes
+	userMap[toEmail].Eyes += eyes
+	userMap[fromEmail].Spent += eyes
+	userMap[toEmail].Earnings += eyes
+
+	block := &Block{
+		Timestamp:       time.Now().Unix(),
+		PreviousHash:    prevBlockHash,
+		CurrHash:        []byte{},
+		User:            userMap,
+		TransactionHash: nil,
+		Nonce:           0,
+	}
+
+	nonce := 0
+	for {
+		block.CurrHash = CalculateHash(*block, nonce)
+		if isValid(block.CurrHash) {
+			break
+		}
+		nonce++
+	}
+	block.Nonce = nonce
+	return block, nil
+
 }

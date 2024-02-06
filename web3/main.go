@@ -34,6 +34,9 @@ func main() {
 	r.HandleFunc("/user/createNewUser", func(w http.ResponseWriter, r *http.Request) {
 		routes.CreateNewUser(w, r, blockchainInstance)
 	}).Methods("POST")
+	r.HandleFunc("/user/giveEyes", func(w http.ResponseWriter, r *http.Request) {
+		routes.GiveEyeRoute(w, r, blockchainInstance)
+	}).Methods("POST")
 
 	fmt.Println("Server is running on :8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
