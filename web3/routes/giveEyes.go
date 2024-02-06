@@ -36,7 +36,18 @@ func GiveEyeRoute(w http.ResponseWriter, r *http.Request, blockchainInstance *bl
 
 	PreviousBlock := blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1]
 
-	fmt.Println("Public key: ", *PreviousBlock.User[fromEmail].PublicKey)
+	_, fromExists := PreviousBlock.User[fromEmail]
+	if !fromExists {
+		http.Error(w, fmt.Sprintf("%s does not exist.", fromEmail), http.StatusBadRequest)
+		return
+	}
+
+	// Check if toEmail exists in the User map of the previous block
+	_, toExists := PreviousBlock.User[toEmail]
+	if !toExists {
+		http.Error(w, fmt.Sprintf("%s does not exist.", toEmail), http.StatusBadRequest)
+		return
+	}
 
 	D := new(big.Int)
 	D.SetString(privateKeyD, 10)
@@ -48,51 +59,46 @@ func GiveEyeRoute(w http.ResponseWriter, r *http.Request, blockchainInstance *bl
 
 	fmt.Println("Private key: ", privateKey)
 
-	fmt.Println(fromEmail, toEmail, eyes, privateKeyD, privateKey, "\n\n\n")
-
-	// msg := blockchainInstance.GiveEyes(fromEmail, toEmail, privateKey, eyes)
-
-	// for _, block := range blockchainInstance.Blocks {
-	// 	fmt.Println("Hash of the block:", block.CurrHash)
-	// 	fmt.Println("Hash of prev block:", block.PreviousHash)
-	// 	fmt.Println("Data:", block.User)
-	// 	fmt.Println("Transaction:", block.TransactionHash)
-
-	// 	fmt.Println("\n\n")
-	// }
-	// fmt.Fprintf(w, "%s", msg)
 	validation := ValidatePrivateKey(PreviousBlock.User[fromEmail].PublicKey, &privateKey)
+	if !validation {
+		fmt.Fprintf(w, "%s", validation)
+	} else {
 
-	fmt.Fprintf(w, "%s", validation)
+		fmt.Println(fromEmail, toEmail, eyes, privateKeyD, privateKey, "\n\n\n")
+
+		err = blockchainInstance.GiveEyes(fromEmail, toEmail, &privateKey, eyes)
+
+		if err != nil {
+			fmt.Println("error:", err)
+		}
+
+		fmt.Println("From user eyes: ", blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1].User[fromEmail])
+		fmt.Println("To user eyes: ", blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1].User[toEmail])
+
+		fmt.Fprintf(w, "%s", validation)
+	}
 }
 
 func ValidatePrivateKey(publicKey *ecdsa.PublicKey, privateKey *ecdsa.PrivateKey) bool {
-	// Generate a random message to sign
 	message := []byte("validation message")
 
-	// Hash the message
 	hash := sha256.Sum256(message)
 
-	// Sign the hashed message with the private key
 	r, s, err := ecdsa.Sign(rand.Reader, privateKey, hash[:])
 	if err != nil {
 		fmt.Println("Error signing the message:", err)
 		return false
 	}
 
-	// Marshal the signature
 	signature, err := asn1.Marshal(struct{ R, S *big.Int }{r, s})
 	if err != nil {
 		fmt.Println("Error marshaling the signature:", err)
 		return false
 	}
 
-	// Verify the signature using the public key
 	if !ecdsa.VerifyASN1(publicKey, hash[:], signature) {
 		fmt.Println("Verification failed: The private key does not correspond to the provided public key.")
 		return false
 	}
-
-	// Validation successful
 	return true
 }

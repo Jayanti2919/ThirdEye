@@ -17,16 +17,17 @@ func (blockchain *Blockchain) AddBlock(userInstance *User, email string, private
 	return nil
 
 }
+
 func (blockchain *Blockchain) GiveEyes(fromEmail string, toEmail string, privateKey *ecdsa.PrivateKey, eyes float64) error {
-	// fmt.Println("Private key: ", privateKey)
+
 	PreviousBlock := blockchain.Blocks[len(blockchain.Blocks)-1]
 
-	newBlock, err := addEyeBlock(fromEmail, toEmail, PreviousBlock.CurrHash, PreviousBlock.User, privateKey, eyes)
+	_, _ = addEyeBlock(fromEmail, toEmail, PreviousBlock.CurrHash, PreviousBlock.User, privateKey, eyes)
 
-	if err != nil {
-		return err
-	}
-	blockchain.Blocks = append(blockchain.Blocks, newBlock)
+	// if err != nil {
+	// 	return err
+	// }
+	// blockchain.Blocks = append(blockchain.Blocks, newBlock)
 	return nil
 
 }
