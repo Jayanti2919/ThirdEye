@@ -21,7 +21,7 @@ def get_recommendations():
     )
 
     # Fetch data from the database
-    query = "SELECT title, year_of_release, description, tag, genre, likeCount FROM videos;"
+    query = "SELECT title, uploadDate, description, tags, genre, likeCount FROM videos;"
     movies_df = pd.read_sql(query, con=db_connection)
 
     # Close the database connection
@@ -29,29 +29,29 @@ def get_recommendations():
 
     # Content-based filtering using TF-IDF
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-    genres_tags_matrix = tfidf_vectorizer.fit_transform(movies_df['genre'] + ' ' + movies_df['tag'])
+    genres_tags_matrix = tfidf_vectorizer.fit_transform(movies_df['genre'] + ' ' + movies_df['tags'])
 
     # Process user input from the form
     user_preferences = {
-        'genresWatched': request.form.getlist('genresWatched'),
-        'tagsWatched': request.form.getlist('tagsWatched'),
-        'likedVideos': list(map(int, request.form.getlist('likedVideos')))
+        'genresWatched': {'Action': 2, 'Romance': 5, 'Horror': 1},
+        'tagsWatched': ['Funny', 'Sad', 'Sci_fi'],
+        'likedVideos': [101, 150, 200]
     }
 
     # Combine user preferences with user and video data
-    user_liked_videos = movies_df[movies_df['likeCount'].isin(user_preferences['likedVideos'])]
-    user_genres_tags = ', '.join(user_preferences['genresWatched'] + user_preferences['tagsWatched'])
-    user_data = pd.DataFrame({'genre': [user_genres_tags], 'tag': [user_genres_tags]})
+    #user_liked_videos = movies_df[movies_df['likeCount'].isin(user_preferences['likedVideos'])]
+    user_genres_tags = ', '.join([genre for genre, count in user_preferences['genresWatched'].items() for _ in range(count)] + user_preferences['tagsWatched'])
+    user_data = pd.DataFrame({'genre': [user_genres_tags], 'tags': [user_genres_tags]})
 
     # Calculate similarity using linear kernel
-    user_matrix = tfidf_vectorizer.transform(user_data['genre'] + ' ' + user_data['tag'])
+    user_matrix = tfidf_vectorizer.transform(user_data['genre'] + ' ' + user_data['tags'])
     cosine_similarities = linear_kernel(user_matrix, genres_tags_matrix).flatten()
 
     # Adjust the threshold for selecting recommended videos
     video_indices = cosine_similarities.argsort()[:-10:-1]  # Top 2 recommendations
 
     # Get video details based on similarity scores
-    top_recommendations = movies_df.loc[video_indices, ['title', 'year_of_release', 'genre', 'tag', 'likeCount']]
+    top_recommendations = movies_df.loc[video_indices, ['title', 'uploadDate', 'genre', 'tags', 'likeCount']]
 
     return render_template('recommendations.html', recommendations=top_recommendations.to_dict('records'))
 

@@ -27,6 +27,9 @@ const Users = connection.define('users', {
     profilePic: {
         type: DataTypes.STRING,
     },
+    otp: {
+        type: DataTypes.STRING,
+    },
 }, {
     tableName: "users",
     timestamps: false,
