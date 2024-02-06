@@ -42,7 +42,6 @@ func GiveEyeRoute(w http.ResponseWriter, r *http.Request, blockchainInstance *bl
 		return
 	}
 
-	// Check if toEmail exists in the User map of the previous block
 	_, toExists := PreviousBlock.User[toEmail]
 	if !toExists {
 		http.Error(w, fmt.Sprintf("%s does not exist.", toEmail), http.StatusBadRequest)
@@ -57,25 +56,18 @@ func GiveEyeRoute(w http.ResponseWriter, r *http.Request, blockchainInstance *bl
 		D:         D,
 	}
 
-	fmt.Println("Private key: ", privateKey)
-
 	validation := ValidatePrivateKey(PreviousBlock.User[fromEmail].PublicKey, &privateKey)
 	if !validation {
-		fmt.Fprintf(w, "%s", validation)
+		http.Error(w, "Invalid Private Key", http.StatusBadRequest)
+		return
 	} else {
 
-		fmt.Println(fromEmail, toEmail, eyes, privateKeyD, privateKey, "\n\n\n")
-
-		err = blockchainInstance.GiveEyes(fromEmail, toEmail, &privateKey, eyes)
-
+		_, err := blockchainInstance.GiveEyes(fromEmail, toEmail, &privateKey, eyes)
 		if err != nil {
-			fmt.Println("error:", err)
+			http.Error(w, "Error in transaction", http.StatusBadRequest)
 		}
 
-		fmt.Println("From user eyes: ", blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1].User[fromEmail])
-		fmt.Println("To user eyes: ", blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1].User[toEmail])
-
-		fmt.Fprintf(w, "%s", validation)
+		fmt.Fprintf(w, "Successful transfer")
 	}
 }
 

@@ -8,7 +8,7 @@ import (
 type Transaction struct {
 	From   *ecdsa.PublicKey
 	To     *ecdsa.PublicKey
-	Amount int
+	Amount float64
 	r      big.Int
 	s      big.Int
 }

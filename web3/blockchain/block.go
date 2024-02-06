@@ -50,7 +50,18 @@ func addEyeBlock(fromEmail string, toEmail string, prevBlockHash []byte, prevUse
 	userMap[fromEmail].Spent += eyes
 	userMap[toEmail].Earnings += eyes
 
-	block, err := MineBlock(userMap, prevBlockHash, nil)
+	r, s, err := signTransaction(privateKey, userMap[fromEmail])
+	if err != nil {
+		userMap[fromEmail].Eyes += eyes
+		userMap[toEmail].Eyes -= eyes
+		userMap[fromEmail].Spent -= eyes
+		userMap[toEmail].Earnings -= eyes
+
+		return nil, errors.New("Error creating transaction")
+	}
+
+	transaction := createTransaction(userMap[fromEmail].PublicKey, userMap[toEmail].PublicKey, eyes, *r, *s)
+	block, err := MineBlock(userMap, prevBlockHash, transaction)
 
 	return block, err
 
