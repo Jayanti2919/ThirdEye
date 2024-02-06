@@ -22,6 +22,7 @@ const Users = connection.define('users', {
     },
     subscriberCount: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
     },
     profilePic: {
         type: DataTypes.STRING,
