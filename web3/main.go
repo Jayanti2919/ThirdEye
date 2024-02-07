@@ -28,8 +28,6 @@ func main() {
 	blockchainInstance := blockchain.NewBlockchain()
 
 	r.HandleFunc("/", handler)
-	// r.HandleFunc("/user/createNewUser", routes.CreateNewUser).Methods("POST")
-	// r.HandleFunc("/user/generateWallet/{name}", routes.CreateNewUser).Methods("GET")
 
 	r.HandleFunc("/user/createNewUser", func(w http.ResponseWriter, r *http.Request) {
 		routes.CreateNewUser(w, r, blockchainInstance)

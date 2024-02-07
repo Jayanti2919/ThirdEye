@@ -5,9 +5,9 @@ import (
 )
 
 func (blockchain *Blockchain) AddBlock(userInstance *User, email string, privateKey *ecdsa.PrivateKey) error {
-	// fmt.Println("Private key: ", privateKey)
 	PreviousBlock := blockchain.Blocks[len(blockchain.Blocks)-1]
 
+	// validate previous block
 	newBlock, err := NewBlock(userInstance, PreviousBlock.CurrHash, email, PreviousBlock.User, privateKey)
 
 	if err != nil {

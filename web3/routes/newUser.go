@@ -20,11 +20,12 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 		return
 	}
 
-	email := request.Email
-	fmt.Println(email)
+	email := request.email
+
 	userInstance, privateKey, e := blockchain.GenerateUserWallet(email)
 	if e != nil {
-		fmt.Fprintf(w, "Error in creating user: %s", e)
+		fmt.Println("Error: ", e)
+		http.Error(w, fmt.Sprintf("Error creating user %s", email), http.StatusBadRequest)
 	}
 
 	err = blockchainInstance.AddBlock(userInstance, email, privateKey)
@@ -32,9 +33,7 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 	if err != nil {
 		fmt.Println("Error in creating new user: ", err)
 	}
-	// userMap := make(map[string]*blockchain.User)
-	// bck := blockchain.NewBlock(userInstance, nil, email, userMap)
-	// fmt.Println(bck.User[email].PublicKey)
+
 	for _, block := range blockchainInstance.Blocks {
 		fmt.Println("Hash of the block:", block.CurrHash)
 		fmt.Println("Hash of prev block:", block.PreviousHash)
