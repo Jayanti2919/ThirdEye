@@ -3,8 +3,6 @@ package blockchain
 import (
 	"crypto/ecdsa"
 	"errors"
-	"fmt"
-	"reflect"
 )
 
 func NewGenesisBlock() *Block {
@@ -20,7 +18,6 @@ func NewBlock(user *User, prevBlockHash []byte, email string, prevUserMap map[st
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(reflect.TypeOf(r))
 		transaction = createTransaction(user.PublicKey, user.PublicKey, 0, *r, *s)
 	}
 	userMap := make(map[string]*User)
