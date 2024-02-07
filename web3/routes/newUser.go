@@ -20,7 +20,7 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 		return
 	}
 
-	email := request.email
+	email := request.Email
 
 	userInstance, privateKey, e := blockchain.GenerateUserWallet(email)
 	if e != nil {
