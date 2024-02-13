@@ -23,7 +23,15 @@ const Videos = connection.define('videos', {
         type: DataTypes.STRING,
     },
     tags: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.STRING,
+        get(){
+            const stringValue=this.getDataValue('tags');
+            return stringValue?rawValue.split(','):null;
+        },
+        set(value){
+            const arrayValue=value?value.join(','):'';
+            this.setDataValue('tags',arrayValue);
+        },
     },
     description: {
         type: DataTypes.STRING,

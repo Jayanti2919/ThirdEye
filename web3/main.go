@@ -39,6 +39,10 @@ func main() {
 		routes.BuyEyesRoute(w, r, blockchainInstance)
 	}).Methods("POST")
 
+	// get eyes by email route
+	// get user details by email route
+	// validate private key
+
 	fmt.Println("Server is running on :8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
