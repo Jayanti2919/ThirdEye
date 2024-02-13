@@ -59,7 +59,7 @@ def get_recommendations():
     # Close the database connection
     # db_connection.close()
 
-    user_preferences = collection.find_one({'userId': '1'})
+    user_preferences = collection.find_one({'userId': '7'})
 
 
     # Process user input from the form
