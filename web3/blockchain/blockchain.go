@@ -2,6 +2,7 @@ package blockchain
 
 import (
 	"crypto/ecdsa"
+	"fmt"
 )
 
 func (blockchain *Blockchain) AddBlock(userInstance *User, email string, privateKey *ecdsa.PrivateKey) error {
@@ -30,6 +31,14 @@ func (blockchain *Blockchain) GiveEyes(fromEmail string, toEmail string, private
 	// }
 	// blockchain.Blocks = append(blockchain.Blocks, newBlock)
 	return block, err
+
+}
+
+func (blockchain *Blockchain) BuyEyes(email string, privateKey *ecdsa.PrivateKey, eyes float64) (*Block, error) {
+	blockchain = validateBlock(blockchain)
+	PreviousBlock := blockchain.Blocks[len(blockchain.Blocks)-1]
+	fmt.Println(PreviousBlock)
+	return nil, nil
 
 }
 
