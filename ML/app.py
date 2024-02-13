@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from pymongo import MongoClient
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -9,6 +10,10 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/thirdeye'
 db = SQLAlchemy(app)
+
+mongo_client = MongoClient('mongodb://localhost:27017/')
+mongo_db = mongo_client['Users']
+collection = mongo_db['user_preferences']
 
 
 class Video(db.Model):
@@ -54,15 +59,16 @@ def get_recommendations():
     # Close the database connection
     # db_connection.close()
 
-    
+    user_preferences = collection.find_one({'userId': '1'})
+
 
     # Process user input from the form
-    user_preferences = {
-        'genresWatched': {'Action': 2, 'Romance': 5, 'Horror': 1},
-        'tagsWatched': ['Funny', 'Sad', 'Sci_fi'],
-        'likedVideos': [101, 150, 200]
-    }
-
+    # user_preferences = {
+    #     'genresWatched': {'Action': 2, 'Romance': 5, 'Horror': 1},
+    #     'tagsWatched': ['Funny', 'Sad', 'Sci_fi'],
+    #     'likedVideos': [101, 150, 200]
+    # }
+ 
     # Combine user preferences with user and video data
     #user_liked_videos = movies_df[movies_df['likeCount'].isin(user_preferences['likedVideos'])]
     user_genres_tags = ', '.join([genre for genre, count in user_preferences['genresWatched'].items() for _ in range(count)] + user_preferences['tagsWatched'])
