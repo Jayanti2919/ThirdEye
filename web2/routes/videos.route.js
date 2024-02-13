@@ -28,4 +28,40 @@ router.route("/uploadVideo").post(async(req, res) => {
     });
 })
 
+router.route('/getVideoById').get(async(req, res) => {
+    const header = req.headers;
+    const video = await Video.findOne({ where: { videoId: header.videoId } });
+    if (video) {
+        res.status(200).send(video);
+    } else {
+        res.status(400).send("Video not found");
+    }
+})
+
+router.route('/getVideoByKeywords').get(async(req,res) => {
+    const header = req.headers;
+    const keyword = header.keyword;
+
+    const videos = await Video.findAll({
+        where: {
+            [sequelize.or]: [
+                {title: {[sequelize.like]: '%'+keyword+'%'}},
+                {description: {[sequelize.like]: '%'+keyword+'%'}},
+                {tags: {[sequelize.like]: '%'+keyword+'%'}}
+            ]
+        }
+    })
+})
+/*
+    title
+    desc
+    genre
+    creator
+    tags
+*/
+
+// router.route('/getVideoByCreator')
+
+// router.route('/getVideoBySubscription')
+
 module.exports = router;
