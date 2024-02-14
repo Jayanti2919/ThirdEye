@@ -41,7 +41,12 @@ func main() {
 	r.HandleFunc("/user/getEyes", func(w http.ResponseWriter, r *http.Request) {
 		routes.GetEyesRoute(w, r, blockchainInstance)
 	}).Methods("POST")
-	// get user details by email route
+	r.HandleFunc("/user/getWalletDetails", func(w http.ResponseWriter, r *http.Request) {
+		routes.GetWalletRoute(w, r, blockchainInstance)
+	}).Methods("POST")
+	r.HandleFunc("/user/validatePrivateKey", func(w http.ResponseWriter, r *http.Request) {
+		routes.ValidatePrivateKeyRoute(w, r, blockchainInstance)
+	}).Methods("POST")
 	// validate private key
 
 	fmt.Println("Server is running on :8000")
