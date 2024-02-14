@@ -38,8 +38,9 @@ func main() {
 	r.HandleFunc("/user/buyEyes", func(w http.ResponseWriter, r *http.Request) {
 		routes.BuyEyesRoute(w, r, blockchainInstance)
 	}).Methods("POST")
-
-	// get eyes by email route
+	r.HandleFunc("/user/getEyes", func(w http.ResponseWriter, r *http.Request) {
+		routes.GetEyesRoute(w, r, blockchainInstance)
+	}).Methods("POST")
 	// get user details by email route
 	// validate private key
 
