@@ -31,7 +31,7 @@ const Videos = connection.define('videos', {
         type: DataTypes.STRING,
         get(){
             const stringValue=this.getDataValue('tags');
-            return stringValue?rawValue.split(','):null;
+            return stringValue?stringValue.split(','):null;
         },
         set(value){
             const arrayValue=value?value.join(','):'';

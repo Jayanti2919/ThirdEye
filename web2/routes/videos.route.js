@@ -3,6 +3,7 @@ const Video = require('../models/SQL/video.model');
 const User = require('../models/SQL/users.model');
 const express = require('express');
 const router = express.Router();
+const { Op } = require('sequelize');
 
 router.route("/uploadVideo").post(async(req, res) => {
     const body = req.body;
@@ -28,29 +29,47 @@ router.route("/uploadVideo").post(async(req, res) => {
     });
 })
 
-router.route('/getVideoById').get(async(req, res) => {
+router.route('/getVideoById').get(async (req, res) => {
     const header = req.headers;
-    const video = await Video.findOne({ where: { videoId: header.videoId } });
+    if (header.videoid === undefined) {
+        res.status(400).send("videoId not provided in headers");
+        return;
+    }
+
+    const video = await Video.findOne({ where: { videoId: header.videoid } });
+    
     if (video) {
         res.status(200).send(video);
     } else {
         res.status(400).send("Video not found");
     }
-})
+});
+
 
 router.route('/getVideoByKeywords').get(async(req,res) => {
     const header = req.headers;
     const keyword = header.keyword;
 
-    const videos = await Video.findAll({
-        where: {
-            [sequelize.or]: [
-                {title: {[sequelize.like]: '%'+keyword+'%'}},
-                {description: {[sequelize.like]: '%'+keyword+'%'}},
-                {tags: {[sequelize.like]: '%'+keyword+'%'}}
-            ]
+    try{
+
+        const videos = await Video.findAll({
+            where: {
+                [Op.or]: [
+                    {title: {[Op.like]: '%'+keyword+'%'}},
+                    {description: {[Op.like]: '%'+keyword+'%'}},
+                    {tags: {[Op.like]: '%'+keyword+'%'}}
+                ]
+            }
+        })
+        if (videos && videos.length > 0) {
+            res.status(200).send(videos);
+        } else {
+            res.status(404).send("No results");
         }
-    })
+    } catch(error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
 })
 
 router.route('/getVideoByCreator').get(async(req,res) => {
@@ -75,15 +94,12 @@ router.route('/getVideoByCreator').get(async(req,res) => {
         res.send(error);
     })
 })
-/*
-    title
-    desc
-    genre
-    creator
-    tags
-*/
+
+router.route('/getVideoBySubscription').get(async(req,res) => {
+    // code to get channelName from user subscriptions and find latest videos from those channelNames
+})
 
 
-// router.route('/getVideoBySubscription')
+
 
 module.exports = router;
