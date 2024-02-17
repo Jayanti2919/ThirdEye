@@ -5,9 +5,14 @@ const Users = require("./users.model");
 const connection = sqlConnect();
 
 const Videos = connection.define('videos', {
+    videoId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     videoHash: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        unique: true,
     },
     title: {
         type: DataTypes.STRING,

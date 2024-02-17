@@ -16,6 +16,7 @@ const Users = connection.define('users', {
     },
     channelName: {
         type: DataTypes.STRING,
+        unique: true,
     },
     channelDesc: {
         type: DataTypes.STRING,

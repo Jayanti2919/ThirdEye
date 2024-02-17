@@ -52,6 +52,29 @@ router.route('/getVideoByKeywords').get(async(req,res) => {
         }
     })
 })
+
+router.route('/getVideoByCreator').get(async(req,res) => {
+    const header = req.headers;
+    const channelName = header.channelName;
+    const offset = header.offset;
+    const user = await User.findOne({ where: {
+        channelName: channelName,
+    }}).then(async ()=>{
+        const video = await Video.findAll({
+            offset: offset,
+            limit: 10,
+            where: {
+                userId: user.userId
+            }
+        }).then(()=>{
+            res.send(video);
+        }).catch((error)=>{
+            res.send(error);
+        })
+    }).catch((error)=>{
+        res.send(error);
+    })
+})
 /*
     title
     desc
@@ -60,7 +83,6 @@ router.route('/getVideoByKeywords').get(async(req,res) => {
     tags
 */
 
-// router.route('/getVideoByCreator')
 
 // router.route('/getVideoBySubscription')
 
