@@ -5,9 +5,14 @@ const Users = require("./users.model");
 const connection = sqlConnect();
 
 const Videos = connection.define('videos', {
+    videoId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     videoHash: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        unique: true,
     },
     title: {
         type: DataTypes.STRING,
@@ -26,7 +31,7 @@ const Videos = connection.define('videos', {
         type: DataTypes.STRING,
         get(){
             const stringValue=this.getDataValue('tags');
-            return stringValue?rawValue.split(','):null;
+            return stringValue?stringValue.split(','):null;
         },
         set(value){
             const arrayValue=value?value.join(','):'';
