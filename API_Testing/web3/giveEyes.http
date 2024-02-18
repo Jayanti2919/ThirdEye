@@ -1,0 +1,9 @@
+POST http://localhost:8000/user/giveEyes HTTP/1.1
+content-type: application/json
+
+{
+    "fromEmail": "shivpreet16@gmail.com",
+    "toEmail": "jayanti@gmail.com",
+    "privateKey":"61585320369596017249781730223206776430648988025670127593625007678878341170594",
+    "eyes":"1.55"
+}
