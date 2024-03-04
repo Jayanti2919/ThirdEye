@@ -1,0 +1,6 @@
+POST http://localhost:8000/user/createNewUser HTTP/1.1
+content-type: application/json
+
+{
+    "email": "kghgsfhgs@gmail.com"
+}

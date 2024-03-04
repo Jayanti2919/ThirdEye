@@ -21,6 +21,13 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request, blockchainInstance *b
 	}
 
 	email := request.Email
+	PreviousBlock := blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1]
+
+	_, emailExists := PreviousBlock.User[email]
+	if emailExists {
+		http.Error(w, fmt.Sprintf("%s already exists.", email), http.StatusBadRequest)
+		return
+	}
 
 	userInstance, privateKey, e := blockchain.GenerateUserWallet(email)
 	if e != nil {

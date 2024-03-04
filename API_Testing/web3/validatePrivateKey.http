@@ -1,0 +1,7 @@
+POST http://localhost:8000/user/validatePrivateKey HTTP/1.1
+content-type: application/json
+
+{
+    "email": "shivpreet16@gmail.com",
+    "privateKey":"61585320369596017249781730223206776430648988025670127593625007678878341170594"
+}

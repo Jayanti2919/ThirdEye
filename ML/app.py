@@ -18,7 +18,8 @@ collection = mongo_db['user_preferences']
 
 class Video(db.Model):
     __tablename__ = 'videos'
-    videoHash = db.Column(db.Integer, primary_key=True)
+    videoId = db.Column(db.Integer, primary_key=True)
+    videoHash = db.Column(db.Integer, unique=True)
     title = db.Column(db.String(255))
     uploadDate = db.Column(db.String(255))
     description = db.Column(db.String(255))
@@ -49,8 +50,8 @@ def get_recommendations():
     # )
 
     movies = Video.query.all()
-    movies_df = pd.DataFrame([(movie.title, movie.uploadDate, movie.description, movie.tags, movie.genre, movie.likeCount) for movie in movies],
-                             columns=['title', 'uploadDate', 'description', 'tags', 'genre', 'likeCount'])
+    movies_df = pd.DataFrame([(movie.videoId,movie.title, movie.uploadDate, movie.description, movie.tags, movie.genre, movie.likeCount) for movie in movies],
+                             columns=['videoId','title', 'uploadDate', 'description', 'tags', 'genre', 'likeCount'])
 
     # Fetch data from the database
     # query = "SELECT title, uploadDate, description, tags, genre, likeCount FROM videos;"
@@ -86,7 +87,7 @@ def get_recommendations():
     video_indices = cosine_similarities.argsort()[:-10:-1]  # Top 2 recommendations
 
     # Get video details based on similarity scores
-    top_recommendations = movies_df.loc[video_indices, ['title', 'uploadDate', 'genre', 'tags', 'likeCount']]
+    top_recommendations = movies_df.loc[video_indices, ['videoId','title', 'uploadDate', 'genre', 'tags', 'likeCount']]
 
     return render_template('recommendations.html', recommendations=top_recommendations.to_dict('records'))
 
