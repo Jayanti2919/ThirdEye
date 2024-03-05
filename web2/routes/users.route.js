@@ -91,6 +91,7 @@ router.route("/updateSubCount").put(async (req, res) => {
 });
 
 router.route("/loginOTP").post(async (req, res) => {
+  console.log("login OTP called")
   const body = req.body;
   const user = await User.findOne({ where: { email: body.email } });
   if (!user) {

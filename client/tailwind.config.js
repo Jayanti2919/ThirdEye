@@ -10,7 +10,11 @@ export default {
       secondary: "#C1C0FF",
       accent: "#CBFFEC",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+         'poppins': ['Poppins'],
+      }
+   }
   },
   plugins: [],
 }
