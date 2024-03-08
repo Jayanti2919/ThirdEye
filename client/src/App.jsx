@@ -1,7 +1,9 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
-import Login from './pages/login';
+import Login from './pages/Login';
 import Landing from './pages/Landing';
-import Register from './/pages/Register';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import OTPVerification from './pages/OTPVerification';
 
 export default function App() {
   return (
@@ -9,7 +11,10 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/Register' element={<Register />}/>
+        <Route path='/verifyOtp' element={<OTPVerification />}/>
+        <Route path='/register' element={<Register />}/>
+        <Route path='/home' element={<Home />}/>
+        
       </Routes>
     </div>
   )
