@@ -98,10 +98,7 @@ router.route("/loginOTP").post(async (req, res) => {
     res.json({ message: "User not found" });
     return;
   }
-  if (user.otpValid === false) {
-    res.json({ message: "OTP no longer valid" });
-    return;
-  } else if (user.otpCreatedAt > new Date(Date.now() - 2 * 60000)) {
+  if (user.otpCreatedAt > new Date(Date.now() - 2 * 60000)) {
     res.json({ message: "Wait for 2 minutes before requesting again" });
     return;
   }
@@ -185,6 +182,77 @@ router.route("/subscribe").put(async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
+});
+
+router.route("/unsubscribe").put(async (req, res) => {
+  const body = req.body;
+  let user = await UserPreferences.findOne({ userId: body.email });
+  if (!user) {
+    console.log("No such user");
+    res.status(400).send("No such user");
+    return;
+  }
+  if (user.subscribedTo.includes(body.channelName)) {
+    user.subscribedTo = user.subscribedTo.filter(
+      (channel) => channel !== body.channelName
+    );
+  }
+  await user.save().then(() => {  
+    res.status(200).send(user);
+    return;
+  }).catch((error)=>{
+    console.log(error);
+    res.status(500).send("Could not update user");
+  })
+})
+
+router.route("/updatePreferences").put(async (req, res) => {
+  const body = req.body;
+  const genre = body.genre;
+  const tags = body.tags;
+
+  let user = UserPreferences.findOne({ userId: body.email });
+  let flag = 0;
+  if (!user) {
+    user = new UserPreferences({
+      userId: body.email,
+      genresWatched: [],
+      tagsWatched: [],
+      subscribedTo: [],
+      likedVideos: [],
+    });
+    flag = 1;
+  }
+  if (flag === 1) {
+    await user
+      .save()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send("Could not create a user");
+        return;
+      });
+  }
+  user = await UserPreferences.findOne({ userId: body.email });
+  if (!user.genresWatched.includes(genre)) {
+    user.genresWatched.push(genre);
+  }
+  for (let tag of tags) {
+    if (!user.tagsWatched.includes(tag)) {
+      user.tagsWatched.push(tag);
+    }
+  }
+  await user
+    .save()
+    .then(() => {
+      res.status(200).send(user);
+      return;
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+      return;
+    });
 });
 
 module.exports = router;
