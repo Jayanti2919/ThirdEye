@@ -255,4 +255,43 @@ router.route("/updatePreferences").put(async (req, res) => {
     });
 });
 
+router.route("/likeVideo").put(async (req, res) => {
+  const body = req.body;
+  let user = await UserPreferences.findOne({ userId: body.email });
+  if(!user) {
+    res.status(404).send("User not found");
+    return;
+  }
+  if(!user.likedVideos.includes(body.videoId)) {
+    user.likedVideos.push(body.videoId);
+  }
+  await user.save().then(()=>{
+    res.status(200).send(user);
+    return;
+  }).catch((error)=>{
+    console.log(error);
+    res.status(500).send("Could not update user");
+  })
+});
+
+router.route("/unlikeVideo").put(async (req, res) => {
+  const body = req.body;
+  let user = await UserPreferences.findOne({ userId: body.email });
+  if(!user) {
+    res.status(404).send("User not found");
+    return;
+  }
+  if(user.likedVideos.includes(body.videoId)) {
+    user.likedVideos = user.likedVideos.filter(video => video !== body.videoId);
+  }
+  await user.save().then(()=>{
+    res.status(200).send(user);
+    return;
+  }).catch((error)=>{
+    console.log(error);
+    res.status(500).send("Could not update user");
+    return;
+  })
+});
+
 module.exports = router;
