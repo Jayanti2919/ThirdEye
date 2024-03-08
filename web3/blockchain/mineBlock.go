@@ -3,6 +3,7 @@ package blockchain
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"time"
 )
@@ -31,7 +32,11 @@ func MineBlock(userMap map[string]*User, prevBlockHash []byte, transaction *Tran
 }
 
 func CalculateHash(block Block, nonce int) []byte {
-	data := []byte(fmt.Sprintf("%d%s%s%d", block.Timestamp, block.PreviousHash, block.User, nonce))
+	userJSON, err := json.Marshal(block.User)
+	if err != nil {
+		return nil
+	}
+	data := []byte(fmt.Sprintf("%d%s%s%d", block.Timestamp, block.PreviousHash, userJSON, nonce))
 	hash := sha256.Sum256(data)
 	return hash[:]
 }

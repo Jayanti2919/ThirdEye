@@ -7,9 +7,11 @@ const RegistrationOTP = require("./models/SQL/registrationotp.model");
 const userRouter = require("./routes/users.route");
 const videoRouter = require("./routes/videos.route");
 const registrationRouter = require("./routes/registration.route");
+const cors=require('cors')
 
 dotenv.config();
 const app = express();
+app.use(cors())
 const connection = sqlConnect();
 mongoConnect();
 
