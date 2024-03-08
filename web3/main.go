@@ -12,14 +12,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	walletInstance, _, _ := blockchain.GenerateUserWallet("shivpreet16@gmail.com")
-	fmt.Fprint(w, walletInstance)
-}
-
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	name := vars["name"]
-	fmt.Fprintf(w, "Hello, %s!", name)
+	fmt.Fprint(w, "Hii")
 }
 
 func main() {
