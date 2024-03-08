@@ -1,32 +1,40 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from '@mui/material/Button';
+import Card from '../components/Card'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [Email, setEmail] = useState("")
-  const handleSendOTP=async(e)=>{
+  const nav = useNavigate()
+  const handleSendOTP = async (e) => {
     e.preventDefault()
-    console.log(Email)
-    axios.post('http://localhost:8080/user/loginOTP',{email:Email}).then((r)=>console.log(r)).catch((e)=>console.log(e))
+    axios.post(`${import.meta.env.VITE_API_URL}/user/loginOTP`, { email: Email }).then((r) => {
+      alert(r.data.message)
+      if (r.data.message === 'OTP sent successfully') {
+        nav('/verifyOtp', {
+          state: {
+            email: Email,
+            cardLabel: "Login"
+          }
+        }
+        )
+      } else if (r.data.message === 'User not found') {
+        nav('/register')
+      }
+    }).catch((e) => console.log(e))
   }
 
   return (
-    <div className="text-primary flex justify-center items-center h-screen p-10 md:px-24">
-      <div className="h-fit w-full lg:w-[30%] bg-secondary opacity-80 font-poppins p-10 flex flex-col rounded-lg gap-7 items-center">
-        <h2 className="text-2xl font-semibold ">Login</h2>
-        <form className="w-full flex justify-center items-center flex-col gap-4">
-          <TextField id="outlined-basic" label="Email" variant="outlined" color="secondary" size="medium" sx={{ width: '70%' }}
-            onChange={(e)=>{
-              setEmail(e.target.value)
-            }}
-          />
-          <Button variant="contained" color='secondary' sx={{ width: '70%' }}
-          onClick={handleSendOTP}
-          >Send OTP</Button>
-        </form>
-      </div>
+    <div className="h-screen flex items-center justify-center flex-col">
+
+      <Card cardLabel="Login" txtLabel="Email" buttonLabel="Send OTP" setAction={setEmail} handleSubmit={handleSendOTP} />
+      <span className="text-secondary cursor-pointer hover:text-[#ffffff]" onClick={(e)=>{
+        e.preventDefault()
+        nav("/register")
+      }}>Not registered yet?</span>
     </div>
+
   );
 };
 
