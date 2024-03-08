@@ -91,16 +91,26 @@ router.route("/updateSubCount").put(async (req, res) => {
 });
 
 router.route("/loginOTP").post(async (req, res) => {
-  console.log("login OTP called")
+  console.log("login OTP called");
   const body = req.body;
   const user = await User.findOne({ where: { email: body.email } });
   if (!user) {
     res.json({ message: "User not found" });
+    return;
+  }
+  if (user.otpValid === false) {
+    res.json({ message: "OTP no longer valid" });
+    return;
+  } else if (user.otpCreatedAt > new Date(Date.now() - 2 * 60000)) {
+    res.json({ message: "Wait for 2 minutes before requesting again" });
+    return;
   }
   const otp = generateOTP();
   await User.update(
     {
       otp: otp,
+      otpCreatedAt: new Date(),
+      otpValid: true,
     },
     {
       where: {
@@ -112,10 +122,12 @@ router.route("/loginOTP").post(async (req, res) => {
       console.log("OTP updated successfully");
       const response = await sendEmail(body.email, otp);
       res.json({ message: response });
+      return;
     })
     .catch((err) => {
       console.log(err);
       res.json({ message: "Error updating OTP" });
+      return;
     });
 });
 
@@ -124,11 +136,28 @@ router.route("/verifyloginOTP").post(async (req, res) => {
   const user = await User.findOne({ where: { email: body.email } });
   if (!user) {
     res.json({ message: "User not found" });
+    return;
+  }
+  if (user.otpValid === false) {
+    res.json({ message: "OTP already used." });
+    return;
+  }
+  if (user.otpCreatedAt < new Date(Date.now() - 2 * 60000)) {
+    res.json({ message: "OTP no longer valid. Request for new OTP" });
+    return;
   }
   if (user.otp === body.otp) {
+    user.update({
+      otpValid: false,
+      where: {
+        email: body.email,
+      },
+    });
     res.json({ message: "OTP verified successfully" });
+    return;
   } else {
     res.json({ message: "Invalid OTP" });
+    return;
   }
 });
 

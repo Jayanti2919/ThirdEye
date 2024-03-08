@@ -36,7 +36,6 @@ const Users = connection.define('users', {
     },
     otpValid: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
     },
 }, {
     tableName: "users",

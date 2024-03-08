@@ -20,7 +20,7 @@ const sendEmail = async(email, otp) => {
       from: process.env.EMAIL_ADDRESS | "",
       to: email,
       subject: "ThirdEye OTP!",
-      text: `Your OTP is ${otp}.`,
+      text: `Your OTP is ${otp}. It is valid for 2 minutes. Please do not share it with anyone.`,
     };
     return new Promise((resolve, reject) => {
       transporter.sendMail(mailOptions, (err, info) => {
