@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import ParticlesComponent from "../components/ParticleComponent";
+import "../App.css";
 
 const Landing = () => {
   return (
-    <div className='bg-primary text-secondary'>
-        <h1>Shubhangi design dedo plz</h1>
-    </div>
-  )
-}
+    <div className="bg-primary relative z-10">
+      <ParticlesComponent id="tsparticles"/>
 
-export default Landing
+    </div>
+  );
+};
+
+export default Landing;

@@ -5,7 +5,7 @@ import Register from './/pages/Register';
 
 export default function App() {
   return (
-    <div className='bg-primary min-h-screen'>
+    <div className='min-h-screen bg-primary'>
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/login' element={<Login />}/>

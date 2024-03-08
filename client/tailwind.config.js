@@ -6,9 +6,10 @@ export default {
   ],
   theme: {
     colors: {
-      primary: "#0B001A",
-      secondary: "#C1C0FF",
-      accent: "#CBFFEC",
+      primary: "#0E0C0D",
+      secondary: "#F1EFEF",
+      tertiary: "#353B64",
+      accent: "#9D9FE2",
     },
     extend: {
       fontFamily: {
