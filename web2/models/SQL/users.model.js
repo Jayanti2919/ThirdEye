@@ -31,6 +31,13 @@ const Users = connection.define('users', {
     otp: {
         type: DataTypes.STRING,
     },
+    otpCreatedAt: {
+        type: DataTypes.DATE,
+    },
+    otpValid: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 }, {
     tableName: "users",
     timestamps: false,

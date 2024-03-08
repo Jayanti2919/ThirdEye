@@ -18,9 +18,17 @@ const RegistrationOTP = connection.define('registrationOTPs', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    valid: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
 }, {
     tableName: "registrationOTPs",
-    timestamps: false,
+    timestamps: true,
 });
 
 module.exports = RegistrationOTP;
