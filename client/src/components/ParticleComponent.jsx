@@ -2,10 +2,7 @@ import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import { useCallback, useMemo } from "react";
 
-// tsParticles Repository: https://github.com/matteobruni/tsparticles
-// tsParticles Website: https://particles.js.org/
 const ParticlesComponent = (props) => {
-  // using useMemo is not mandatory, but it's recommended since this value can be memoized if static
   const options = useMemo(() => {
     return {
         particles: {
