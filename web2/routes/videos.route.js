@@ -13,7 +13,7 @@ router.route("/uploadVideo").post(async(req, res) => {
     if (user) {
         user_id = user.userId;
     } else {
-        res.status(400).send("User not found");
+        res.status(400).json({message: "User not found"});
     }
     Video.create({
         title: body.title,
@@ -24,25 +24,26 @@ router.route("/uploadVideo").post(async(req, res) => {
         genre: body.genre,
         tags: body.tags,
     }).then(() => {
-        res.status(200).send("Video uploaded successfully");
+        res.status(200).json({message: "Video uploaded successfully"});
     }).catch((err) => {
-        res.status(400).send(err);
+        console.log(err);
+        res.status(500).json({message: "Error uploading video details"});
     });
 })
 
 router.route('/getVideoById').get(async (req, res) => {
     const header = req.headers;
     if (header.videoid === undefined) {
-        res.status(400).send("videoId not provided in headers");
+        res.status(400).json({message: "videoId not provided in headers"});
         return;
     }
 
     const video = await Video.findOne({ where: { videoId: header.videoid } });
     
     if (video) {
-        res.status(200).send(video);
+        res.status(200).json({message: video});
     } else {
-        res.status(400).send("Video not found");
+        res.status(400).json({message: "Video not found"});
     }
 });
 
@@ -63,15 +64,15 @@ router.route('/getVideoByKeywords').get(async(req,res) => {
             }
         })
         if (videos && videos.length > 0) {
-            res.status(200).send(videos);
+            res.status(200).json({message: videos});
             return;
         } else {
-            res.status(404).send("No results");
+            res.status(404).json({message: "No results"});
             return;
         }
     } catch(error) {
         console.log(error);
-        res.status(500).send(error);
+        res.status(500).json({message: "Error fetching videos"});
         return;
     }
 })

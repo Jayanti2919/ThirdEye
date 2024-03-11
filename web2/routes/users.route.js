@@ -17,11 +17,11 @@ router.route("/createUser").post(async (req, res) => {
     profilePic: body.profilePic,
   })
     .then(() => {
-      res.send("User created successfully");
+      res.status(200).json({message:"User created successfully"});
     })
     .catch((err) => {
       console.log(err);
-      res.send(err);
+      res.status(500).json({message: "Error creating user"});
     });
 });
 
@@ -33,11 +33,11 @@ router.route("/getUser").get(async (req, res) => {
     },
   })
     .then((user) => {
-      res.send(user);
+      res.json({message: user});
     })
     .catch((err) => {
       console.lof(err);
-      res.send(err);
+      res.status(500).json({message: "Error occurred while fetching user"});
     });
 });
 
@@ -189,7 +189,7 @@ router.route("/unsubscribe").put(async (req, res) => {
   let user = await UserPreferences.findOne({ userId: body.email });
   if (!user) {
     console.log("No such user");
-    res.status(400).send("No such user");
+    res.status(400).json({message: "No such user"});
     return;
   }
   if (user.subscribedTo.includes(body.channelName)) {
@@ -198,11 +198,11 @@ router.route("/unsubscribe").put(async (req, res) => {
     );
   }
   await user.save().then(() => {  
-    res.status(200).send(user);
+    res.status(200).json({message: user});
     return;
   }).catch((error)=>{
     console.log(error);
-    res.status(500).send("Could not update user");
+    res.status(500).json({message:"Could not update user"});
   })
 })
 
@@ -229,7 +229,7 @@ router.route("/updatePreferences").put(async (req, res) => {
       .then(() => {})
       .catch((error) => {
         console.log(error);
-        res.status(500).send("Could not create a user");
+        res.status(500).json({message: "Could not create a user"});
         return;
       });
   }
@@ -245,12 +245,12 @@ router.route("/updatePreferences").put(async (req, res) => {
   await user
     .save()
     .then(() => {
-      res.status(200).send(user);
+      res.status(200).json({message: user});
       return;
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).send(error);
+      res.status(500).json({message: "Error saving user"});
       return;
     });
 });
@@ -259,18 +259,18 @@ router.route("/likeVideo").put(async (req, res) => {
   const body = req.body;
   let user = await UserPreferences.findOne({ userId: body.email });
   if(!user) {
-    res.status(404).send("User not found");
+    res.status(404).json({message: "User not found"});
     return;
   }
   if(!user.likedVideos.includes(body.videoId)) {
     user.likedVideos.push(body.videoId);
   }
   await user.save().then(()=>{
-    res.status(200).send(user);
+    res.status(200).json({message: user});
     return;
   }).catch((error)=>{
     console.log(error);
-    res.status(500).send("Could not update user");
+    res.status(500).json({message: "Could not update user"});
   })
 });
 
@@ -278,18 +278,18 @@ router.route("/unlikeVideo").put(async (req, res) => {
   const body = req.body;
   let user = await UserPreferences.findOne({ userId: body.email });
   if(!user) {
-    res.status(404).send("User not found");
+    res.status(404).json({message: "User not found"});
     return;
   }
   if(user.likedVideos.includes(body.videoId)) {
     user.likedVideos = user.likedVideos.filter(video => video !== body.videoId);
   }
   await user.save().then(()=>{
-    res.status(200).send(user);
+    res.status(200).json({message: user});
     return;
   }).catch((error)=>{
     console.log(error);
-    res.status(500).send("Could not update user");
+    res.status(500).json({message: "Could not update user"});
     return;
   })
 });
