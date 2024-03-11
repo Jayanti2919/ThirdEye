@@ -60,7 +60,7 @@ router.route("/sendOTP").post(async (req, res) => {
     sendEmail(body.email, otp)
       .then((r) => {
         console.log(r);
-        res.json({ message: r });
+        res.status(200).json({ message: r });
       })
       .catch((error) => {
         console.log(error);
