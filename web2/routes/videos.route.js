@@ -5,6 +5,8 @@ const express = require('express');
 const router = express.Router();
 const { Op } = require('sequelize');
 const Comments = require('../models/NoSQL/comments.model');
+const UserPreferences = require('../models/NoSQL/userPreferences.model');
+const Videos = require('../models/SQL/video.model');
 
 router.route("/uploadVideo").post(async(req, res) => {
     const body = req.body;
@@ -105,7 +107,38 @@ router.route('/getVideoByCreator').get(async(req,res) => {
 })
 
 router.route('/getVideoBySubscription').get(async(req,res) => {
-    // code to get channelName from user subscriptions and find latest videos from those channelNames
+    const body = req.body;
+    let user = await UserPreferences.findOne({userId:body.email});
+    if(!user) {
+        res.status(404).json({message: "Could not find user"});
+        return;
+    }
+    if(user.subscribedTo.length === 0) {
+        res.status(200).json({message: "No subscriptions"});
+        return;
+    } else {
+        let videos = []
+        user.subscribedTo.forEach(async (element) => {
+            await Videos.findOne({
+                where:{
+                    userId: element
+                }
+            }).then((vid)=> {
+                if(vid) {
+                    videos.push(vid)
+                }
+            }).catch((e) => {
+                console.log(e);
+                res.status(500).json({message: "Error fetching videos"});
+                return;
+            })
+
+            res.status(200).json({message: videos});
+            return;
+
+        });
+
+    }
 })
 
 router.route('/postComment').post(async(req,res) => {
@@ -116,6 +149,7 @@ router.route('/postComment').post(async(req,res) => {
         profilePic: body.profilePic,
         videoHash: body.videoHash,
         commentText: body.commentText,
+        likeCount: 0,
     });
 
     await comment.save().then(()=>{
@@ -124,8 +158,68 @@ router.route('/postComment').post(async(req,res) => {
     }).catch((error)=>{
         console.log(error);
         res.status(400).json({message: "An error occured while posting comment"});
+        return;
     });
 });
+
+router.route('/likeComment').put(async(req, res) =>{
+    let comment = await Comments.findOne({where:{
+        _id: req.body.id
+    }});
+    if(!comment) {
+        res.status(404).json({message: "No such comment found"});
+        return;
+    }
+    comment.likeCount += 1
+    await comment.save().then(()=>{
+        res.status(200).json({message: "Liked successfully"});
+    }).catch((e)=>{
+        console.log(e);
+        res.status(500).json({message: "Unable to like comment"});
+        return;
+    })
+})
+
+router.route('/unlikeComment').put(async(req, res) =>{
+    let comment = await Comments.findOne({where:{
+        _id: req.body.id
+    }});
+    if(!comment) {
+        res.status(404).json({message: "No such comment found"});
+        return;
+    }
+    comment.likeCount -= 1
+    await comment.save().then(()=>{
+        res.status(200).json({message: "Unliked successfully"});
+    }).catch((e)=>{
+        console.log(e);
+        res.status(500).json({message: "Unable to unlike comment"});
+        return;
+    })
+})
+
+router.route('/replyComment').post(async(req,res)=>{
+    let comment = await Comments.findOne({where:{
+        _id: req.body.id
+    }});
+    if(!comment){
+        res.status(404).json({message:"No such comment found"});
+        return;
+    }
+    comment.replies.push({
+        username: req.body.username,
+        profilePic: req.body.profilePic,
+        commentText: req.body.commentText,
+        likeCount: 0,
+    })
+    await comment.save().then(()=>{
+        res.status(200).json({message: "Replied successfully"});
+        return;
+    }).catch((e)=>{
+        console.log(e);
+        res.status(500).json({message: "Unable to reply"});
+    })
+})
 
 
 module.exports = router;
