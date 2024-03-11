@@ -1,3 +1,4 @@
+import React,{useEffect} from 'react'
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
@@ -6,12 +7,18 @@ import Home from "./pages/Home";
 import OTPVerification from "./pages/OTPVerification";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
-import { UseAuth,GetAuthContext } from "./AuthContext";
+import { GetAuthContext,GetAuthUpdateContext } from "./AuthContext";
 
 export default function App() {
   const auth=GetAuthContext()
+  const toggle=GetAuthUpdateContext()
+  console.log("app:" ,auth)
+  useEffect(()=>{
+    
+    toggle()
+    console.log("use effect:",auth)
+  },[])
   return (
-    <UseAuth>
       <div className="min-h-screen bg-primary">
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -23,6 +30,5 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
         </Routes>
       </div>
-    </UseAuth>
   );
 }

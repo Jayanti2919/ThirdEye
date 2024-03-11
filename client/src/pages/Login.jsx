@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
 import isValidEmail from "../emailValidator";
+import { GetAuthContext } from "../AuthContext";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
+  const auth=GetAuthContext()
+  console.log("Login:",auth)
   const nav = useNavigate();
+  useEffect(() => {
+    if(auth){
+      nav('/home')
+    } 
+  },[auth])
   const handleSendOTP = async (e) => {
     e.preventDefault();
 

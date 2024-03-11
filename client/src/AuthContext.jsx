@@ -13,7 +13,7 @@ export function GetAuthUpdateContext() {
 export function UseAuth({ children }) {
   const [auth, setAuth] = useState(false);
   function toggleAuth() {
-    setAuth(!auth);
+    setAuth(true);
   }
   return (
     <AuthContext.Provider value={auth}>
