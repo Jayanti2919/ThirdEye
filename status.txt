@@ -1,0 +1,7 @@
+400: unauthorized
+404: not found
+500: internal server error
+200: ok
+409: User already registered
+429: Too many requests
+501: Not implimented
