@@ -56,11 +56,11 @@ router.route("/updateUser").put(async (req, res) => {
     }
   )
     .then((user) => {
-      res.send("Updated successfully");
+      res.status(200).json({message:"Updated successfully"});
     })
     .catch((err) => {
       console.log(err);
-      res.send(err);
+      res.status(500).json({message: "Error updating user"});
     });
 });
 
@@ -82,11 +82,11 @@ router.route("/updateSubCount").put(async (req, res) => {
     }
   )
     .then((user) => {
-      res.send("Updated successfully");
+      res.status(200).json({message: "Updated successfully"});
     })
     .catch((err) => {
       console.log(err);
-      res.send(err);
+      res.status(500).json({message: "Error updating subscriber count"});
     });
 });
 
