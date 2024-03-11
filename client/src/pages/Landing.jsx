@@ -12,12 +12,15 @@ const Landing = () => {
     nav(path);
   };
   return (
-    <div className="bg-primary relative z-10">
+    <div className="bg-primary relative z-10 overflow-x-hidden">
+      <div className="absolute h-screen justify-center items-center flex left-10">
+
+        <SideNav />
+      </div>
       <div className="absolute">
         <ParticlesComponent id="tsparticles" />
       </div>
       <div className="h-screen flex items-center px-5 w-screen">
-        <SideNav />
         <div className="flex flex-col text-secondary w-full items-center justify-center gap-10">
           <img src="thirdeye_logo_white.svg" alt="thirdeye" />
           <h1 className="uppercase alumni-sans text-5xl leading-[30px]">
