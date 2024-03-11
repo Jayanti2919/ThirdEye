@@ -90,13 +90,15 @@ router.route('/getVideoByCreator').get(async(req,res) => {
                 userId: user.userId
             }
         }).then(()=>{
-            res.send(video);
+            res.status(200).json({message: video});
         }).catch((error)=>{
-            res.send(error);
+            console.log(error);
+            res.status(500).json({message: "Error while finding videos by creator"});
             return;
         })
     }).catch((error)=>{
-        res.send(error);
+        console.log(error);
+        res.status(500).json({message: "Error while finding creator"});
         return;
     })
 })
