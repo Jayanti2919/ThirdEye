@@ -40,6 +40,12 @@ func main() {
 	r.HandleFunc("/user/validatePrivateKey", func(w http.ResponseWriter, r *http.Request) {
 		routes.ValidatePrivateKeyRoute(w, r, blockchainInstance)
 	}).Methods("POST")
+	r.HandleFunc("/user/generateJWT", func(w http.ResponseWriter, r *http.Request) {
+		routes.GenerateJWT(w, r, blockchainInstance)
+	}).Methods("POST")
+	r.HandleFunc("/user/validateJWT", func(w http.ResponseWriter, r *http.Request) {
+		routes.ValidateJWT(w, r, blockchainInstance)
+	}).Methods("POST")
 	// validate private key
 
 	fmt.Println("Server is running on :8000")
