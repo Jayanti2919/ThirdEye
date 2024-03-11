@@ -104,7 +104,7 @@ router.route("/verifyOTP").post(async (req, res) => {
       res.status(409).json({message: "User already registered"});
       return;
     }
-    if (comparePasswords(body.otp,user.otp)) {
+    if (await comparePasswords(body.otp,user.otp)) {
       await RegistrationOTP.update(
         {
           valid: false,

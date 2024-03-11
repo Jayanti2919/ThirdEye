@@ -41,17 +41,20 @@ const OTPVerification = () => {
                 otp:otp
             }).then((r)=>{
                 console.log(r)
-                if(r.data.message==='OTP verified and user created successfully'){
+                if(r.status===200){
                     alert(r.data.message)
                     updateAuth()
                     nav('/home')
                 }
-                else if(r.data.message==='OTP verified but error creating user'){
-                    alert(r.data.message)
-                    nav('/home')
-                }
             }).catch(e=>{
-                console.log(e)
+                if(e.response.status===500){
+                    alert(e.response.data.message);
+                    nav('/register');
+                }
+                else {
+                    alert(e.response.data.message);
+                    nav('/');
+                }
             })
 
         }
