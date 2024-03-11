@@ -31,6 +31,22 @@ const OTPVerification = () => {
                 console.log(e)
             })
         } else if(cardLabel==='Register'){
+            axios.post(`${import.meta.env.VITE_API_URL}/register/verifyOTP`,{
+                email:email,
+                otp:otp
+            }).then((r)=>{
+                console.log(r)
+                if(r.data.message==='OTP verified and user created successfully'){
+                    alert(r.data.message)
+                    nav('/home')
+                }
+                else if(r.data.message==='OTP verified but error creating user'){
+                    alert(r.data.message)
+                    nav('/home')
+                }
+            }).catch(e=>{
+                console.log(e)
+            })
 
         }
     }
