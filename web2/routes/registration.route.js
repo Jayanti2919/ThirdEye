@@ -17,10 +17,10 @@ router.route("/sendOTP").post(async (req, res) => {
   });
   if (user) {
     if (user.valid === false) {
-      res.status(500).json({ message: "User already registered" });
+      res.status(409).json({ message: "User already registered" });
       return;
     } else if (user.createdAt > new Date(Date.now() - 2 * 60000)) {
-      res.status(501).json({ message: "Wait for 2 minutes before requesting again" });
+      res.status(429).json({ message: "Wait for 2 minutes before requesting again" });
       return;
     } else {
       await RegistrationOTP.update(
@@ -70,11 +70,11 @@ router.route("/sendOTP").post(async (req, res) => {
           },
         })
           .then(() => {
-            res.status(502).json({ message: "Error sending email" });
+            res.status(500).json({ message: "Error sending email" });
           })
           .catch((err) => {
             console.log(err);
-            res.status(503).json({
+            res.status(429).json({
               message:
                 "Error sending email but wait 2 minutes before you try again",
             });
@@ -82,7 +82,7 @@ router.route("/sendOTP").post(async (req, res) => {
           });
       });
   } else {
-    res.status(504).json({ message: "Error" });
+    res.status(500).json({ message: "Error sending OTP" });
     return;
   }
 });
@@ -97,7 +97,7 @@ router.route("/verifyOTP").post(async (req, res) => {
 
   if (user) {
     if(user.valid === false) {
-      res.status(503).json({message: "User already registered"});
+      res.status(409).json({message: "User already registered"});
       return;
     }
     if (user.otp === body.otp) {
@@ -121,8 +121,13 @@ router.route("/verifyOTP").post(async (req, res) => {
             })
             .catch((err) => {
               console.log(err);
-
-              res.status(500).json({message:"OTP verified but error creating user"});
+              RegistrationOTP.destroy({where:{email:body.email}}).then (()=> {
+                res.status(500).json({message:"OTP verified but error creating user"});
+              }).catch((err) => {
+                console.log(err);
+                res.status(501).json({message:"OTP verified but error creating user and error deleting OTP"});
+                return;
+              });
               return;
             });
         })
@@ -132,11 +137,11 @@ router.route("/verifyOTP").post(async (req, res) => {
           return;
         });
     } else {
-      res.status(502).json({message: "Invalid OTP"});
+      res.status(400).json({message: "Invalid OTP"});
       return;
     }
   } else {
-    res.status(504).json({message: "Email not found"});
+    res.status(404).json({message: "Email not found"});
     return;
   }
 });

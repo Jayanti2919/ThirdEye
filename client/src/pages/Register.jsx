@@ -22,9 +22,17 @@ const Register = () => {
               cardLabel: "Register",
             },
           });
-        }
+        } 
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        if(e.response.status===409){
+          alert('User already registered')
+          nav('/login')
+        } else {
+          alert(r.data.message)
+          setEmail('')
+        }
+      });
   };
 
   return (
