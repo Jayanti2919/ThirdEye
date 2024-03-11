@@ -17,7 +17,7 @@ const SideNav = () => {
     nav(path);
   };
   return (
-    <div className="text-primary cursor-pointer relative z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary opacity-60">
+    <div className="text-primary cursor-pointer relative z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-60">
       <ul className="flex flex-col justify-between h-full py-5 text-[10px] items-center uppercase">
         <li>
           <Tooltip title="Home">

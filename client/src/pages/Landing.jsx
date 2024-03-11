@@ -16,7 +16,7 @@ const Landing = () => {
       <div className="absolute">
         <ParticlesComponent id="tsparticles" />
       </div>
-      <div className="h-screen md:flex items-center px-5 hidden w-screen">
+      <div className="h-screen flex items-center px-5 w-screen">
         <SideNav />
         <div className="flex flex-col text-secondary w-full items-center justify-center gap-10">
           <img src="thirdeye_logo_white.svg" alt="thirdeye" />
