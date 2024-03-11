@@ -3,12 +3,19 @@ import Card from "../components/Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
+import isValidEmail from "../emailValidator";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
   const nav = useNavigate();
   const handleSendOTP = async (e) => {
     e.preventDefault();
+
+    if(!isValidEmail(Email)){
+      alert("Invalid email address");
+      return;
+    }
+
     axios
       .post(`${import.meta.env.VITE_API_URL}/user/loginOTP`, { email: Email })
       .then((r) => {
