@@ -38,7 +38,7 @@ const SideNav = () => {
         </li>
         <li>
           {" "}
-          <Tooltip title="Login">
+          <Tooltip title="Sign In">
             <IconButton>
               <LoginRounded />
             </IconButton>
@@ -46,7 +46,7 @@ const SideNav = () => {
         </li>
         <li>
           {" "}
-          <Tooltip title="Register">
+          <Tooltip title="Sign Up">
             <IconButton>
               <HowToRegRounded />
             </IconButton>
