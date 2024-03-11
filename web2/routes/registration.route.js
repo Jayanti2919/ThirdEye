@@ -4,11 +4,14 @@ const Users = require("../models/SQL/users.model");
 const express = require("express");
 const router = express.Router();
 const { generateOTP, sendEmail } = require("../utils/functions");
+const {hashPassword, comparePasswords} =require('../utils/hashPassword')
 
 router.route("/sendOTP").post(async (req, res) => {
   console.log("Send OTP route called")
   const body = req.body;
   const otp = generateOTP();
+  const hashedOTP=await hashPassword(otp)
+
   var flag = 0;
   const user = await RegistrationOTP.findOne({
     where: {
@@ -25,7 +28,7 @@ router.route("/sendOTP").post(async (req, res) => {
     } else {
       await RegistrationOTP.update(
         {
-          otp: otp,
+          otp: hashedOTP,
           createdAt: new Date(),
           valid: true,
         },
@@ -45,7 +48,7 @@ router.route("/sendOTP").post(async (req, res) => {
   } else {
     await RegistrationOTP.create({
       email: body.email,
-      otp: otp,
+      otp: hashedOTP,
       createdAt: new Date(),
       valid: true,
     })
@@ -81,6 +84,7 @@ router.route("/sendOTP").post(async (req, res) => {
             return;
           });
       });
+    res.status(200)
   } else {
     res.status(500).json({ message: "Error sending OTP" });
     return;
@@ -100,7 +104,7 @@ router.route("/verifyOTP").post(async (req, res) => {
       res.status(409).json({message: "User already registered"});
       return;
     }
-    if (user.otp === body.otp) {
+    if (comparePasswords(body.otp,user.otp)) {
       await RegistrationOTP.update(
         {
           valid: false,
