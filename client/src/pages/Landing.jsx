@@ -24,7 +24,7 @@ const Landing = () => {
         <div className="flex flex-col text-secondary w-full items-center justify-center gap-10">
           <img src="thirdeye_logo_white.svg" alt="thirdeye" />
           <h1 className="uppercase alumni-sans text-5xl leading-[30px]">
-            third eye
+            thirdeye
           </h1>
           <div className="flex gap-10 mt-5">
             <Button
