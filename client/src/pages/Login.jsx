@@ -65,6 +65,7 @@ const Login = () => {
         >
           Not registered yet?
         </span>
+        
       </div>
     </div>
   );

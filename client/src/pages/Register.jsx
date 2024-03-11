@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
+import {GetAuthContext, GetAuthUpdateContext} from '../AuthContext'
 
 const Register = () => {
   const [Email, setEmail] = useState("");
   const nav = useNavigate();
+  const auth=GetAuthContext()
+  const updateAuth=GetAuthUpdateContext()
+  console.log(auth)
   const handleSendOTP = async (e) => {
     e.preventDefault();
     axios
@@ -35,6 +39,12 @@ const Register = () => {
       });
   };
 
+  useEffect(() => {
+    if(auth){
+      nav('/home')
+    } 
+  },[auth])
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="absolute z-20 top-0 left-0 p-5 flex flex-col items-center gap-2 cursor-pointer" onClick={(e)=>nav('/')}>
@@ -61,6 +71,13 @@ const Register = () => {
         >
           Already registered?
         </span>
+        <span 
+        className="text-secondary cursor-pointer hover:text-[#9D9FE2]"
+        onClick={(e)=>{
+          e.preventDefault()
+          updateAuth()
+          console.log(auth)
+        }}>hii change auth</span>
       </div>
     </div>
   );
