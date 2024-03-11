@@ -6,6 +6,7 @@ const router = express.Router();
 const { generateOTP, sendEmail } = require("../utils/functions");
 
 router.route("/sendOTP").post(async (req, res) => {
+  console.log("Send OTP route called")
   const body = req.body;
   const otp = generateOTP();
   var flag = 0;
