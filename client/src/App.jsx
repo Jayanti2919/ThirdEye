@@ -11,13 +11,13 @@ import { GetAuthContext,GetAuthUpdateContext } from "./AuthContext";
 
 export default function App() {
   const auth=GetAuthContext()
-  const toggle=GetAuthUpdateContext()
+  // const toggle=GetAuthUpdateContext()
   console.log("app:" ,auth)
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    toggle()
-    console.log("use effect:",auth)
-  },[])
+  //   toggle()
+  //   console.log("use effect:",auth)
+  // },[])
   return (
       <div className="min-h-screen bg-primary">
         <Routes>

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import axios from 'axios'
+import {GetAuthContext, GetAuthUpdateContext} from '../AuthContext'
+
 const OTPVerification = () => {
+    const updateAuth=GetAuthUpdateContext()
     const [otp, setOtp] = useState("")
     const loc=useLocation()
     const nav=useNavigate()
@@ -24,7 +27,9 @@ const OTPVerification = () => {
                 email:email,
                 otp:otp
             }).then((r)=>{
+                console.log(r)
                 if(r.data.message==='OTP verified successfully'){
+                    updateAuth()
                     nav('/home')
                 }
             }).catch(e=>{
@@ -38,6 +43,7 @@ const OTPVerification = () => {
                 console.log(r)
                 if(r.data.message==='OTP verified and user created successfully'){
                     alert(r.data.message)
+                    updateAuth()
                     nav('/home')
                 }
                 else if(r.data.message==='OTP verified but error creating user'){
