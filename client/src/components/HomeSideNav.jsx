@@ -118,7 +118,7 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Subscriptions">
-            <IconButton onClick={() => handleNavigation("/features")}>
+            <IconButton onClick={() => handleNavigation("/subscriptions")}>
               <SubscriptionsRounded />
             </IconButton>
           </Tooltip>
@@ -126,7 +126,7 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Liked Videos">
-            <IconButton onClick={() => handleNavigation("/pricing")}>
+            <IconButton onClick={() => handleNavigation("/likedvideos")}>
               <FavoriteBorderRounded />
             </IconButton>
           </Tooltip>

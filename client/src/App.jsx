@@ -8,6 +8,8 @@ import OTPVerification from "./pages/OTPVerification";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
 import { GetAuthContext,GetAuthUpdateContext } from "./AuthContext";
+import LikedVideos from './components/likedVideos';
+import Subscriptions from './components/Subscriptions';
 
 export default function App() {
   const auth=GetAuthContext()
@@ -28,6 +30,8 @@ export default function App() {
           <Route path="/home" element={auth?<Home />:<Navigate to='/login' replace/>} />
           <Route path="/features" element={<Features />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/likedvideos" element={<LikedVideos />} />
         </Routes>
       </div>
   );
