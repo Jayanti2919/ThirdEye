@@ -179,7 +179,7 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Sign Out">
-            <IconButton onClick={() => handleNavigation("/register")}>
+            <IconButton onClick={() => handleNavigation("/login")}>
               <LogoutRounded />
             </IconButton>
           </Tooltip>
