@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
@@ -87,9 +87,12 @@ def get_recommendations():
     video_indices = cosine_similarities.argsort()[:-10:-1]  # Top 2 recommendations
 
     # Get video details based on similarity scores
-    top_recommendations = movies_df.loc[video_indices, ['videoId','title', 'uploadDate', 'genre', 'tags', 'likeCount']]
+    #top_recommendations = movies_df.loc[video_indices, ['videoId','title', 'uploadDate', 'genre', 'tags', 'likeCount']]
 
-    return render_template('recommendations.html', recommendations=top_recommendations.to_dict('records'))
+    #return render_template('recommendations.html', recommendations=top_recommendations.to_dict('records'))
+    top_recommendations=movies_df.loc[video_indices, ['videoId']].values.flatten()[:10]
+    return jsonify({"recommendations": top_recommendations.tolist()})
+
 
 if __name__ == '__main__':
     # db_connection = mysql.connector.connect(
