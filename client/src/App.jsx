@@ -10,6 +10,7 @@ import Pricing from "./components/Pricing";
 import { GetAuthContext, GetAuthUpdateContext } from "./AuthContext";
 import LikedVideos from "./components/likedVideos";
 import Subscriptions from "./components/Subscriptions";
+import Payments from "./components/Payments";
 
 export default function App() {
   const auth = GetAuthContext();
@@ -41,7 +42,9 @@ export default function App() {
           path="/home/likedvideos"
           element={auth ? <LikedVideos /> : <Navigate to="/login" />}
         />
+        <Route path="/home/payments" element={<Payments />} />
       </Routes>
+      
     </div>
   );
 }

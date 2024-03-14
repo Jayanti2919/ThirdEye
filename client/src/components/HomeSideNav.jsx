@@ -103,6 +103,7 @@ const HomeSideNav = ({
                   <p className="font-medium ml-2">{detail.value}</p>
                 </div>
               ))}
+              
               <Button
                 variant="outlined"
                 size="small"
