@@ -5,13 +5,14 @@ import IconButton from "@mui/material/IconButton";
 import {
   AccountBalanceWalletRounded,
   SubscriptionsRounded,
-  FavoriteBorderRounded,
+  FavoriteRounded,
   LogoutRounded,
   VisibilityRounded,
   AlternateEmailRounded,
   KeyRounded,
   BarChartRounded,
   CurrencyExchangeRounded,
+  HomeRounded,
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
@@ -61,6 +62,14 @@ const HomeSideNav = ({
   return (
     <div className="text-primary cursor-pointer fixed z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-60">
       <ul className="flex flex-col justify-between h-full py-5 text-[10px] items-center">
+        <li>
+          {" "}
+          <Tooltip title="Home">
+            <IconButton onClick={() => handleNavigation("/home")}>
+              <HomeRounded />
+            </IconButton>
+          </Tooltip>
+        </li>
         <li className="relative">
           <Tooltip title="Wallet">
             <IconButton
@@ -127,7 +136,7 @@ const HomeSideNav = ({
           {" "}
           <Tooltip title="Liked Videos">
             <IconButton onClick={() => handleNavigation("/home/likedvideos")}>
-              <FavoriteBorderRounded />
+              <FavoriteRounded />
             </IconButton>
           </Tooltip>
         </li>

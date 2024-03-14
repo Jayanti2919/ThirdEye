@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import HomeSideNav from "../components/HomeSideNav";
+import HomeTopNav from "../components/HomeTopNav";
 
 const Home = () => {
   const [walletDetails, setWalletDetails] = useState(false);
@@ -9,6 +10,9 @@ const Home = () => {
     <div className="relative">
       <div className="absolute h-screen justify-center items-center flex left-10 px-5">
         <HomeSideNav walletDetails={walletDetails} setWalletDetails={setWalletDetails} showEyes={showEyes} setShowEyes={setShowEyes}/>
+      </div>
+      <div>
+        <HomeTopNav />
       </div>
     </div>
   );
