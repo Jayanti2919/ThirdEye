@@ -71,13 +71,17 @@ const Register = () => {
         >
           Already registered?
         </span>
-        <span 
-        className="text-secondary cursor-pointer hover:text-[#9D9FE2]"
-        onClick={(e)=>{
-          e.preventDefault()
-          updateAuth()
-          console.log(auth)
-        }}>hii change auth</span>
+        <span
+          className="text-secondary cursor-pointer hover:text-[#9D9FE2]"
+          onClick={(e) => {
+            e.preventDefault();
+            updateAuth()
+            nav("/login");
+          }}
+        >
+          Change Auth
+        </span>
+        
       </div>
     </div>
   );
