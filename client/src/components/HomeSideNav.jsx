@@ -119,6 +119,7 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
+                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
               >
                 Buy More
               </Button>
@@ -180,6 +181,7 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
+                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
               >
                 Buy More
               </Button>
