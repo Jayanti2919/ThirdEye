@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
@@ -7,32 +7,44 @@ import Home from "./pages/Home";
 import OTPVerification from "./pages/OTPVerification";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
-import { GetAuthContext,GetAuthUpdateContext } from "./AuthContext";
-import LikedVideos from './components/likedVideos';
-import Subscriptions from './components/Subscriptions';
+import { GetAuthContext, GetAuthUpdateContext } from "./AuthContext";
+import LikedVideos from "./components/likedVideos";
+import Subscriptions from "./pages/Subscriptions";
+import Payments from "./pages/Payments";
 
 export default function App() {
-  const auth=GetAuthContext()
+  const auth = GetAuthContext();
   // const toggle=GetAuthUpdateContext()
-  console.log("app:" ,auth)
+  console.log("app:", auth);
   // useEffect(()=>{
-    
+
   //   toggle()
   //   console.log("use effect:",auth)
   // },[])
   return (
-      <div className="min-h-screen bg-primary">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verifyOtp" element={<OTPVerification />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={auth?<Home />:<Navigate to='/login' replace/>} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/subscriptions" element={<Subscriptions />} />
-          <Route path="/likedvideos" element={<LikedVideos />} />
-        </Routes>
-      </div>
+    <div className="min-h-screen bg-primary">
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verifyOtp" element={<OTPVerification />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/home"
+          element={auth ? <Home /> : <Navigate to="/login" replace />}
+        />
+        <Route path="/features" element={<Features />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route
+          path="/home/subscriptions"
+          element={auth ? <Subscriptions /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/home/likedvideos"
+          element={auth ? <LikedVideos /> : <Navigate to="/login" />}
+        />
+        <Route path="/home/payments" element={auth?<Payments />: <Navigate to="/login"/>} />
+      </Routes>
+      
+    </div>
   );
 }

@@ -5,13 +5,14 @@ import IconButton from "@mui/material/IconButton";
 import {
   AccountBalanceWalletRounded,
   SubscriptionsRounded,
-  FavoriteBorderRounded,
+  FavoriteRounded,
   LogoutRounded,
   VisibilityRounded,
   AlternateEmailRounded,
   KeyRounded,
   BarChartRounded,
   CurrencyExchangeRounded,
+  HomeRounded,
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
@@ -61,6 +62,14 @@ const HomeSideNav = ({
   return (
     <div className="text-primary cursor-pointer fixed z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-60">
       <ul className="flex flex-col justify-between h-full py-5 text-[10px] items-center">
+        <li>
+          {" "}
+          <Tooltip title="Home">
+            <IconButton onClick={() => handleNavigation("/home")}>
+              <HomeRounded />
+            </IconButton>
+          </Tooltip>
+        </li>
         <li className="relative">
           <Tooltip title="Wallet">
             <IconButton
@@ -94,6 +103,7 @@ const HomeSideNav = ({
                   <p className="font-medium ml-2">{detail.value}</p>
                 </div>
               ))}
+              
               <Button
                 variant="outlined"
                 size="small"
@@ -109,6 +119,7 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
+                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
               >
                 Buy More
               </Button>
@@ -118,7 +129,7 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Subscriptions">
-            <IconButton onClick={() => handleNavigation("/subscriptions")}>
+            <IconButton onClick={() => handleNavigation("/home/subscriptions")}>
               <SubscriptionsRounded />
             </IconButton>
           </Tooltip>
@@ -126,8 +137,8 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Liked Videos">
-            <IconButton onClick={() => handleNavigation("/likedvideos")}>
-              <FavoriteBorderRounded />
+            <IconButton onClick={() => handleNavigation("/home/likedvideos")}>
+              <FavoriteRounded />
             </IconButton>
           </Tooltip>
         </li>
@@ -170,6 +181,7 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
+                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
               >
                 Buy More
               </Button>
@@ -179,7 +191,7 @@ const HomeSideNav = ({
         <li>
           {" "}
           <Tooltip title="Sign Out">
-            <IconButton onClick={() => handleNavigation("/register")}>
+            <IconButton onClick={() => handleNavigation("/login")}>
               <LogoutRounded />
             </IconButton>
           </Tooltip>
