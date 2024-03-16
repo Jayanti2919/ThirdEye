@@ -19,7 +19,7 @@ const Card = ({
             label={txtLabel}
             variant="outlined"
             size="medium"
-            sx={{ 
+            sx={{
               width: "70%",
               '& .MuiOutlinedInput-root': {
                 '&.Mui-focused fieldset': {
@@ -36,6 +36,7 @@ const Card = ({
               setAction(e.target.value);
             }}
           />
+          
           <Button
             variant="outlined"
             sx={{

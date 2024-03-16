@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
+import LoginPk from "./pages/LoginPk";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -17,6 +18,7 @@ export default function App() {
   const auth = GetAuthContext();
   // const toggle=GetAuthUpdateContext()
   console.log("app:", auth);
+  
   // useEffect(()=>{
 
   //   toggle()
@@ -29,6 +31,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         {/* <Route path="/createChannel" element={auth? <CreateChannel />: <Navigate to='/login'/>} /> */}
         <Route path="/createChannel" element={<CreateChannel />} />
+        <Route path="/login/2" element={<LoginPk />} />
         <Route path="/verifyOtp" element={<OTPVerification />} />
         <Route path="/register" element={<Register />} />
         <Route
