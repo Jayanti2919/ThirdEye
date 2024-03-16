@@ -7,10 +7,8 @@ const Card = ({
   txtLabel,
   buttonLabel,
   setAction,
-  txtLabelPk,
   handleSubmit,
 }) => {
-  console.log(txtLabelPk)
   return (
     <div className="text-primary flex justify-center items-center h-fit w-full m-10 md:px-24">
       <div className="h-fit w-full lg:w-full bg-secondary opacity-60 font-poppins py-20 flex flex-col rounded-lg gap-7 items-center">
@@ -38,32 +36,6 @@ const Card = ({
               setAction(e.target.value);
             }}
           />
-          <div className={`${txtLabelPk?"block":"hidden"} w-full flex justify-center`}>
-
-
-            <TextField
-              id="outlined-basic"
-              label={txtLabelPk}
-              variant="outlined"
-              size="medium"
-              sx={{
-                width: "70%",
-                '& .MuiOutlinedInput-root': {
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#353B64',
-                  },
-                },
-                '& .MuiInputLabel-root': {
-                  '&.Mui-focused': {
-                    color: '#353B64',
-                  },
-                },
-              }}
-              onChange={(e) => {
-                setAction(e.target.value);
-              }}
-              />
-          </div>
           
           <Button
             variant="outlined"

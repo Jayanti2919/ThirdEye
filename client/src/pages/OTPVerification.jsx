@@ -10,7 +10,6 @@ import { setCookie } from "../utils/cookies";
 const OTPVerification = () => {
     const updateAuth = GetAuthUpdateContext()
     const [otp, setOtp] = useState("")
-    const [pk,setPk]=useState("")
     const loc = useLocation()
     const nav = useNavigate()
     let email, cardLabel
@@ -34,8 +33,7 @@ const OTPVerification = () => {
                 console.log(r)
                 if (r.data.message === 'OTP verified successfully') {
                     updateAuth()
-                    setCookie()
-                    nav('/home')
+                    nav('/login/2fa')
                 }
             }).catch(e => {
                 console.log(e)
@@ -51,7 +49,7 @@ const OTPVerification = () => {
                 if (r.status === 200) {
                     alert(r.data.message)
                     updateAuth()
-                    nav('/home')
+                    nav('/createChannel')
                 }
             }).catch(e => {
                 if (e.response.status === 500) {
@@ -77,7 +75,6 @@ const OTPVerification = () => {
             </div>
             <div className="h-fit w-fit flex items-center justify-center flex-col relative z-20">
                 <Card 
-                txtLabelPk="Private Key"
                 cardLabel={cardLabel} txtLabel="Enter OTP" buttonLabel="Verify OTP" setAction={setOtp} handleSubmit={handleVerify} />
 
             </div>
