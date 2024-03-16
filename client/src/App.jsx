@@ -29,10 +29,10 @@ export default function App() {
     <div className="min-h-screen bg-primary">
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setLoginState={setLoginState}/>} />
         {/* <Route path="/createChannel" element={auth? <CreateChannel />: <Navigate to='/login'/>} /> */}
         <Route path="/createChannel" element={<CreateChannel />} />
-        <Route path="/login/2" element={<LoginPk />} />
+        <Route path="/login/2" element={<LoginPk loginState={loginState}/>} />
         <Route path="/verifyOtp" element={<OTPVerification />} />
         <Route path="/register" element={<Register />} />
         <Route
