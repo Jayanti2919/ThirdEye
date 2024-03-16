@@ -11,6 +11,7 @@ import { GetAuthContext, GetAuthUpdateContext } from "./AuthContext";
 import LikedVideos from "./components/likedVideos";
 import Subscriptions from "./pages/Subscriptions";
 import Payments from "./pages/Payments";
+import CreateChannel from './pages/CreateChannel';
 
 export default function App() {
   const auth = GetAuthContext();
@@ -26,6 +27,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/createChannel" element={auth? <CreateChannel />: <Navigate to='/login'/>} /> */}
+        <Route path="/createChannel" element={<CreateChannel />} />
         <Route path="/verifyOtp" element={<OTPVerification />} />
         <Route path="/register" element={<Register />} />
         <Route
