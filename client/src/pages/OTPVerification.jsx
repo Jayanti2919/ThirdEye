@@ -33,7 +33,7 @@ const OTPVerification = () => {
                 console.log(r)
                 if (r.data.message === 'OTP verified successfully') {
                     updateAuth()
-                    nav('/login/2fa')
+                    nav('/login/2')
                 }
             }).catch(e => {
                 console.log(e)
@@ -49,7 +49,11 @@ const OTPVerification = () => {
                 if (r.status === 200) {
                     alert(r.data.message)
                     updateAuth()
-                    nav('/createChannel')
+                    nav('/createChannel', {
+                        state: {
+                          email: loc.state.email,
+                        },
+                      })
                 }
             }).catch(e => {
                 if (e.response.status === 500) {
