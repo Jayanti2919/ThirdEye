@@ -6,7 +6,7 @@ import ParticlesComponent from "../components/ParticleComponent";
 import isValidEmail from "../emailValidator";
 import { GetAuthContext } from "../AuthContext";
 
-const Login = () => {
+const Login = ({setLoginState}) => {
   const [Email, setEmail] = useState("");
   const auth=GetAuthContext()
   console.log("Login:",auth)
@@ -29,6 +29,7 @@ const Login = () => {
       .then((r) => {
         alert(r.data.message);
         if (r.data.message === "OTP sent successfully") {
+          setLoginState(true)
           nav("/verifyOtp", {
             state: {
               email: Email,

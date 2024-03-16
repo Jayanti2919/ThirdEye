@@ -15,6 +15,7 @@ import Payments from "./pages/Payments";
 
 export default function App() {
   const auth = GetAuthContext();
+  const [loginState, setLoginState] = useState(false)
   // const toggle=GetAuthUpdateContext()
   console.log("app:", auth);
   
@@ -27,8 +28,8 @@ export default function App() {
     <div className="min-h-screen bg-primary">
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/2" element={<LoginPk />} />
+        <Route path="/login" element={<Login setLoginState={setLoginState} />} />
+        <Route path="/login/2" element={<LoginPk loginState={loginState} />} />
         <Route path="/verifyOtp" element={<OTPVerification />} />
         <Route path="/register" element={<Register />} />
         <Route
