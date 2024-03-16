@@ -21,7 +21,7 @@ const CreateChannel = () => {
   const handleCreateChannel = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_API_URL}/user/createUser`, { email: Email, channelName: channelName, channelDesc: channelDesc})
+      .put(`${import.meta.env.VITE_API_URL}/user/updateUser`, { email: loc.state.email, channelName: channelName, channelDesc: channelDesc, profilePic: "" })
       .then((r)=>{
         alert(r.data.message);
         nav('/home')
