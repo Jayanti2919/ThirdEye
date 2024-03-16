@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
 import logo from '../../public/thirdeye_logo_white.svg'
 
-const LoginPk = () => {
+const LoginPk = ({loginState}) => {
+    const nav=useNavigate()
     const [pk, setPk] = useState("")
     const handleChange=(e=>{
         setPk(e.target.value)
@@ -15,6 +16,11 @@ const LoginPk = () => {
         e.preventDefault()
         // API call to check private key and generate cookie
     })
+    useEffect(()=>{
+        if(!loginState){
+            nav('/login')
+        }
+    },[])
   return (
     <div className="flex items-center justify-center h-screen">
       <div
