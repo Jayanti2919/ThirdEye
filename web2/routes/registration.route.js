@@ -4,7 +4,8 @@ const Users = require("../models/SQL/users.model");
 const express = require("express");
 const router = express.Router();
 const { generateOTP, sendEmail } = require("../utils/functions");
-const {hashPassword, comparePasswords} =require('../utils/hashPassword')
+const {hashPassword, comparePasswords} =require('../utils/hashPassword');
+const axios = require("axios");
 
 router.route("/sendOTP").post(async (req, res) => {
   console.log("Send OTP route called")
@@ -121,7 +122,26 @@ router.route("/verifyOTP").post(async (req, res) => {
           })
             .then(() => {
               console.log("User created");
-              res.status(200).json({message:"OTP verified and user created successfully"});
+              axios.post('http://localhost:8000/user/createNewUser', {
+                email: body.email,
+              }).then((r)=>{
+                res.status(200).json({message: r.data});
+              }).catch(async (err)=>{
+                console.log(err);
+                await RegistrationOTP.destroy({where:{email:body.email}}).then (async ()=> {
+                  await Users.destroy({where:{email:body.email}}).then (()=> {
+                    res.status(500).json({message: "Error creating wallet"});
+                    return;
+                  }).catch((err) => {
+                    console.log(err);
+                    res.status(501).json({message: "Error creating wallet and error deleting user"});
+                    return;
+                  })
+                }).catch((err) => {
+                  console.log(err);
+                  res.status(502).json({message: "Error creating wallet and error deleting user and error deleting OTP"});
+                });
+              });
             })
             .catch((err) => {
               console.log(err);
