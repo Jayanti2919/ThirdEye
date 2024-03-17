@@ -101,7 +101,7 @@ const HomeSideNav = () => {
                   <p className="font-medium ml-2">{detail.value}</p>
                 </div>
               ))}
-              
+
               <Button
                 variant="outlined"
                 size="small"
@@ -117,7 +117,10 @@ const HomeSideNav = () => {
                     color: "#F1EFEF",
                   },
                 }}
-                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  nav("/home/payments");
+                }}
               >
                 Buy More
               </Button>
@@ -143,7 +146,12 @@ const HomeSideNav = () => {
         <li className="relative">
           {" "}
           <Tooltip title="EYE">
-            <IconButton onClick={() => {setShowEyes(!showEyes); setWalletDetails(false)}}>
+            <IconButton
+              onClick={() => {
+                setShowEyes(!showEyes);
+                setWalletDetails(false);
+              }}
+            >
               <VisibilityRounded />
             </IconButton>
           </Tooltip>
@@ -179,7 +187,10 @@ const HomeSideNav = () => {
                     color: "#F1EFEF",
                   },
                 }}
-                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  nav("/home/payments");
+                }}
               >
                 Buy More
               </Button>
