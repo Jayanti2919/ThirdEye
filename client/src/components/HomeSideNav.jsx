@@ -16,18 +16,15 @@ import {
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
-const HomeSideNav = ({
-  walletDetails,
-  setWalletDetails,
-  showEyes,
-  setShowEyes,
-}) => {
+const HomeSideNav = () => {
   const nav = useNavigate();
   const [address, setAddress] = useState("adasda");
   const [publicKey, setPublicKey] = useState("qwe2341rewaseqe24");
   const [eyes, setEyes] = useState(100);
   const [earnings, setEarnings] = useState(20);
   const [spendings, setSpendings] = useState(40);
+  const [walletDetails, setWalletDetails] = useState(false);
+  const [showEyes, setShowEyes] = useState(false);
 
   let details = [
     {
@@ -75,6 +72,7 @@ const HomeSideNav = ({
             <IconButton
               onClick={() => {
                 setWalletDetails(!walletDetails);
+                setShowEyes(false);
               }}
             >
               <AccountBalanceWalletRounded />
@@ -145,7 +143,7 @@ const HomeSideNav = ({
         <li className="relative">
           {" "}
           <Tooltip title="EYE">
-            <IconButton onClick={() => setShowEyes(!showEyes)}>
+            <IconButton onClick={() => {setShowEyes(!showEyes); setWalletDetails(false)}}>
               <VisibilityRounded />
             </IconButton>
           </Tooltip>
