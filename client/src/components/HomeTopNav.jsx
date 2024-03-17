@@ -24,7 +24,7 @@ const HomeTopNav = () => {
           <li className="w-full flex gap-1 items-center justify-center text-secondary">
             <input
               type="text"
-              className="bg-accent opacity-65 rounded-full w-[90%] h-8 px-5 py-3 focus:outline-none text-primary placeholder-tertiary"
+              className="bg-accent opacity-65 rounded-full w-[90%] h-8 px-5 py-5 focus:outline-none text-primary placeholder-tertiary"
               placeholder="Search"
             />
             <IconButton aria-label="Search">

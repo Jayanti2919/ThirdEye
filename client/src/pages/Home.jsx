@@ -1,8 +1,41 @@
 import React, {useState} from "react";
 import HomeSideNav from "../components/HomeSideNav";
 import HomeTopNav from "../components/HomeTopNav";
+import VideoCard from "../components/VideoCard";
 
 const Home = () => {
+
+  let videos = [
+    {
+      title: 'Video 1',
+      creator: 'Creator 1',
+      thumbnailHash: 'thumbnailHash1',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 2',
+      creator: 'Creator 2',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 3',
+      creator: 'Creator 3',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 4',
+      creator: 'Creator 4',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+
+  ]
 
   return (
     <div className="relative">
@@ -11,6 +44,11 @@ const Home = () => {
       </div>
       <div>
         <HomeTopNav />
+      </div>
+      <div className="grid grid-cols-4 items-center mx-28 gap-5 mt-10">
+        {videos.map((video, index) => (
+          <VideoCard key={index} title={video.title} creator={video.creator} thumbnailHash={video.thumbnailHash} likeCount={video.likeCount} viewCount={video.viewCount} />
+        ))}
       </div>
     </div>
   );
