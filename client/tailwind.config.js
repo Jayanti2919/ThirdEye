@@ -14,7 +14,8 @@ export default {
     extend: {
       fontFamily: {
          'poppins': ['Poppins'],
-      }
+      },
+      invert: ['responsive', 'hover', 'focus', 'active', 'group-hover']
    }
   },
   plugins: [],
