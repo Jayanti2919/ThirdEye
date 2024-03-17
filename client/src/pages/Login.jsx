@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,30 +6,32 @@ import ParticlesComponent from "../components/ParticleComponent";
 import isValidEmail from "../emailValidator";
 import { GetAuthContext } from "../AuthContext";
 
-const Login = ({setLoginState}) => {
+const Login = ({ setLoginState }) => {
   const [Email, setEmail] = useState("");
-  const auth=GetAuthContext()
-  console.log("Login:",auth)
+  const [open, setOpen] = React.useState(false);
+  const auth = GetAuthContext();
+  console.log("Login:", auth);
   const nav = useNavigate();
   useEffect(() => {
-    if(auth){
-      nav('/home')
-    } 
-  },[auth])
+    if (auth) {
+      nav("/home");
+    }
+  }, [auth]);
+
   const handleSendOTP = async (e) => {
     e.preventDefault();
 
-    if(!isValidEmail(Email)){
+    if (!isValidEmail(Email)) {
       alert("Invalid email address");
       return;
     }
-
+    setOpen(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/user/loginOTP`, { email: Email })
       .then((r) => {
         alert(r.data.message);
         if (r.data.message === "OTP sent successfully") {
-          setLoginState(true)
+          setLoginState(true);
           nav("/verifyOtp", {
             state: {
               email: Email,
@@ -40,7 +42,8 @@ const Login = ({setLoginState}) => {
           nav("/register");
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
+      .finally(() => setOpen(false));
   };
 
   return (
@@ -64,6 +67,8 @@ const Login = ({setLoginState}) => {
           buttonLabel="Send OTP"
           setAction={setEmail}
           handleSubmit={handleSendOTP}
+          open={open}
+          setOpen={setOpen}
         />
         <span
           className="text-secondary cursor-pointer hover:text-[#9D9FE2]"
@@ -74,7 +79,6 @@ const Login = ({setLoginState}) => {
         >
           Not registered yet?
         </span>
-        
       </div>
     </div>
   );
