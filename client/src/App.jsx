@@ -9,7 +9,7 @@ import OTPVerification from "./pages/OTPVerification";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
 import { GetAuthContext, GetAuthUpdateContext } from "./AuthContext";
-import LikedVideos from "./components/likedVideos";
+import LikedVideos from "./pages/LikedVideos";
 import Subscriptions from "./pages/Subscriptions";
 import Payments from "./pages/Payments";
 import CreateChannel from './pages/CreateChannel';

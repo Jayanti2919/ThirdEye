@@ -16,18 +16,15 @@ import {
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
-const HomeSideNav = ({
-  walletDetails,
-  setWalletDetails,
-  showEyes,
-  setShowEyes,
-}) => {
+const HomeSideNav = () => {
   const nav = useNavigate();
   const [address, setAddress] = useState("adasda");
   const [publicKey, setPublicKey] = useState("qwe2341rewaseqe24");
   const [eyes, setEyes] = useState(100);
   const [earnings, setEarnings] = useState(20);
   const [spendings, setSpendings] = useState(40);
+  const [walletDetails, setWalletDetails] = useState(false);
+  const [showEyes, setShowEyes] = useState(false);
 
   let details = [
     {
@@ -75,6 +72,7 @@ const HomeSideNav = ({
             <IconButton
               onClick={() => {
                 setWalletDetails(!walletDetails);
+                setShowEyes(false);
               }}
             >
               <AccountBalanceWalletRounded />
@@ -103,7 +101,7 @@ const HomeSideNav = ({
                   <p className="font-medium ml-2">{detail.value}</p>
                 </div>
               ))}
-              
+
               <Button
                 variant="outlined"
                 size="small"
@@ -119,7 +117,10 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
-                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  nav("/home/payments");
+                }}
               >
                 Buy More
               </Button>
@@ -145,7 +146,12 @@ const HomeSideNav = ({
         <li className="relative">
           {" "}
           <Tooltip title="EYE">
-            <IconButton onClick={() => setShowEyes(!showEyes)}>
+            <IconButton
+              onClick={() => {
+                setShowEyes(!showEyes);
+                setWalletDetails(false);
+              }}
+            >
               <VisibilityRounded />
             </IconButton>
           </Tooltip>
@@ -181,7 +187,10 @@ const HomeSideNav = ({
                     color: "#F1EFEF",
                   },
                 }}
-                onClick={(e)=>{e.preventDefault();nav('/home/payments')}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  nav("/home/payments");
+                }}
               >
                 Buy More
               </Button>

@@ -7,12 +7,14 @@ import {GetAuthContext, GetAuthUpdateContext} from '../AuthContext'
 
 const Register = () => {
   const [Email, setEmail] = useState("");
+  const [open, setOpen] = React.useState(false);
   const nav = useNavigate();
   const auth=GetAuthContext()
   const updateAuth=GetAuthUpdateContext()
   console.log(auth)
   const handleSendOTP = async (e) => {
     e.preventDefault();
+    setOpen(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/register/sendOTP`, {
         email: Email,
@@ -36,7 +38,7 @@ const Register = () => {
           alert(r.data.message)
           setEmail('')
         }
-      });
+      }).finally(()=>setOpen(false));
   };
 
   useEffect(() => {
@@ -61,6 +63,8 @@ const Register = () => {
           buttonLabel="Send OTP"
           setAction={setEmail}
           handleSubmit={handleSendOTP}
+          open={open}
+          setOpen={setOpen}
         />
         <span
           className="text-secondary cursor-pointer hover:text-[#9D9FE2]"

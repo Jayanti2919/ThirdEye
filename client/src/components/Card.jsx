@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { CircularProgress } from "@mui/material";
 
 const Card = ({
   cardLabel,
@@ -8,7 +9,10 @@ const Card = ({
   buttonLabel,
   setAction,
   handleSubmit,
+  open,
+  setOpen
 }) => {
+  
   return (
     <div className="text-primary flex justify-center items-center h-fit w-full m-10 md:px-24">
       <div className="h-fit w-full lg:w-full bg-secondary opacity-60 font-poppins py-20 flex flex-col rounded-lg gap-7 items-center">
@@ -52,6 +56,9 @@ const Card = ({
           >
             {buttonLabel}
           </Button>
+          <div className={open?"block":"hidden"}>
+            <CircularProgress color="inherit"/>
+          </div>
         </form>
       </div>
     </div>
