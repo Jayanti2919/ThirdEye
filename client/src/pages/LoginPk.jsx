@@ -3,7 +3,6 @@ import CardPassword from "../components/CardPassword";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
-import logo from '../../public/thirdeye_logo_white.svg'
 
 const LoginPk = ({loginState}) => {
     const nav=useNavigate()
@@ -27,7 +26,7 @@ const LoginPk = ({loginState}) => {
         className="absolute z-20 top-0 left-0 p-5 flex flex-col items-center gap-2 cursor-pointer"
         onClick={(e) => nav("/")}
       >
-        <img src={logo} alt="" className="h-20 w-20" />
+        <img src="/thirdeye_logo_white.svg" alt="logo" className="h-20 w-20" />
         <h1 className="text-secondary uppercase alumni-sans text-xl tracking-[5px] ml-2">
           thirdeye
         </h1>
