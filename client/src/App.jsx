@@ -16,7 +16,7 @@ import CreateChannel from './pages/CreateChannel';
 
 export default function App() {
   const auth = GetAuthContext();
-  const [loginState, setLoginState] = useState(false)
+  const [loginState, setLoginState] = useState(true)
   // const toggle=GetAuthUpdateContext()
   console.log("app:", auth);
   
