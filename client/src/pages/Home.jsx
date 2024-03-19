@@ -9,7 +9,7 @@ const Home = () => {
     {
       title: 'Video 1',
       creator: 'Creator 1',
-      thumbnailHash: 'thumbnailHash1',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
       likeCount: 10,
       viewCount: 100,
     },
@@ -34,18 +34,46 @@ const Home = () => {
       likeCount: 10,
       viewCount: 100,
     },
+    {
+      title: 'Video 4',
+      creator: 'Creator 4',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 4',
+      creator: 'Creator 4',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 4',
+      creator: 'Creator 4',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
+    {
+      title: 'Video 4',
+      creator: 'Creator 4',
+      thumbnailHash: 'QmVJ9bAxRqHaKcjm5vnobHoQcs9mqx6iA5Lu2b7Fn6zn8v',
+      likeCount: 10,
+      viewCount: 100,
+    },
 
   ]
 
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden pb-10">
       <div className="absolute h-screen justify-center items-center flex left-10 px-5">
         <HomeSideNav />
       </div>
       <div>
         <HomeTopNav />
       </div>
-      <div className="grid grid-cols-4 items-center mx-28 gap-5 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-4 items-center ml-0 md:ml-28 md:px-14 px-10 gap-5 mt-10">
         {videos.map((video, index) => (
           <VideoCard key={index} title={video.title} creator={video.creator} thumbnailHash={video.thumbnailHash} likeCount={video.likeCount} viewCount={video.viewCount} />
         ))}
