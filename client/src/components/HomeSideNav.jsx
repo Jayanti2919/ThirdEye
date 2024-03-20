@@ -57,7 +57,7 @@ const HomeSideNav = () => {
     nav(path);
   };
   return (
-    <div className="text-primary cursor-pointer fixed z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-60">
+    <div className="text-primary cursor-pointer fixed z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-90">
       <ul className="flex flex-col justify-between h-full py-5 text-[10px] items-center">
         <li>
           {" "}
@@ -81,7 +81,7 @@ const HomeSideNav = () => {
           <div
             className={`${
               walletDetails
-                ? "absolute bg-secondary h-50 w-[20vw] xl:px-10 rounded-md left-[140%] border-2 border-primary z-20 -top-10 p-5 text-primary"
+                ? "absolute bg-secondary h-50 w-[20vw] xl:px-10 rounded-md left-[140%] border-2 border-primary z-20 -top-10 p-5 text-primary "
                 : "hidden"
             }`}
           >
