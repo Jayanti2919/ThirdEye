@@ -13,6 +13,7 @@ import LikedVideos from "./pages/LikedVideos";
 import Subscriptions from "./pages/Subscriptions";
 import Payments from "./pages/Payments";
 import CreateChannel from './pages/CreateChannel';
+import UploadVideo from "./pages/UploadVideo";
 
 export default function App() {
   const auth = GetAuthContext();
@@ -50,6 +51,7 @@ export default function App() {
           element={auth ? <LikedVideos /> : <Navigate to="/login" />}
         />
         <Route path="/home/payments" element={auth?<Payments />: <Navigate to="/login"/>} />
+        <Route path="/home/uploadVideo" element={auth?<UploadVideo />: <Navigate to="/login"/>} />
       </Routes>
       
     </div>
