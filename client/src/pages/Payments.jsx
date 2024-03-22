@@ -3,6 +3,7 @@ import HomeSideNav from "../components/HomeSideNav";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartCheckoutRoundedIcon from '@mui/icons-material/ShoppingCartCheckoutRounded';
+import PaymentCarousel from "../components/PaymentCarousel";
 
 const Payments = () => {
   const nav = useNavigate();
@@ -27,7 +28,9 @@ const Payments = () => {
       <div className="h-fit md:h-screen w-screen flex justify-center items-center py-10 px-4 md:pr-10 md:pl-40">
 
         <div className=" h-[200vh] md:h-full w-full bg-white-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border-2 border-accent border-opacity-20 grid md:grid-cols-2">
-          <div className="">hii</div>
+          <div className=" flex justify-center items-center relative">
+             <PaymentCarousel />
+          </div>
           <div className="flex items-center justify-end md:py-52 lg:py-10 md:pr-10 lg:pl-52 ">
             <div className=" h-[50vh] md:h-full w-full rounded-xl grid grid-cols-3 px-3 md:px-0 opacity-85 shadow">
               <div className="h-[80vh] md:h-full bg-[#181818] text-secondary col-span-2 rounded-s-xl grid grid-rows-2">
