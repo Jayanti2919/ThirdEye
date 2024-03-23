@@ -2,43 +2,20 @@ import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import logo from "../assets/logo_white.svg"
+import {RemoveRedEyeRounded, FileUploadRounded, SlideshowRounded} from '@mui/icons-material';
 import NumberInputBasic from './NumberInput';
 
 const AutoPlaySwipeableViews = (SwipeableViews);
 
-const images = [
-    {
-        label: 'San Francisco – Oakland Bay Bridge, United States',
-        imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bird',
-        imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-    {
-        label: 'Bali, Indonesia',
-        imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-    },
-    {
-        label: 'Goč, Serbia',
-        imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-    },
-];
-
 function PaymentCarousel() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
+    const [eyes, setEyes] = React.useState(1)
     const maxSteps = 2;
 
     const handleNext = () => {
@@ -61,33 +38,55 @@ function PaymentCarousel() {
                 onChangeIndex={handleStepChange}
                 enableMouseEvents
             >
-                {/* {images.map((step, index) => (
-          <div key={step.label}>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <Box
-                component="img"
-                sx={{
-                  height: 255,
-                  display: 'block',
-                  maxWidth: 400,
-                  overflow: 'hidden',
-                  width: '100%',
-                }}
-                src={step.imgPath}
-                alt={step.label}
-              />
-            ) : null}
-            hii
-          </div>
-        ))} */}
                 <div className=' text-secondary flex flex-col justify-center items-center gap-5 mb-5'>
-                    <p>Order Details</p>
+                    <p className='uppercase font-semibold tracking-[10px] text-2xl text-accent'>Order Details</p>
                     <img src={logo} alt="" className='h-40 w-40' />
                     <NumberInputBasic />
+                </div >
+                <div className=' text-secondary flex flex-col justify-between h-full pb-10 items-center '>
+                    <p className='uppercase font-semibold tracking-[10px] text-2xl text-accent'>pricing</p>
+                    <div className='grid gap-10'>
+
+                        <div className="grid grid-cols-3 items-center justify-center text-xl">
+                            <RemoveRedEyeRounded />
+                            <span className=''>1 Eye:
+                            </span>
+                                <span className='font-bold ml-5'>
+                                    INR 0.50
+                                </span>
+                        </div>
+                        <div className="grid grid-cols-3  items-center justify-center text-xl">
+                            <FileUploadRounded />
+                            <span>Upload:
+                            </span>
+                                <span className='font-bold ml-5'>
+                                    15 Eyes
+                                </span>
+                        </div>
+                        <div className="grid grid-cols-3 items-center justify-center text-xl">
+                            <SlideshowRounded />
+                            <span>View:
+                            </span>
+                                <span className='font-bold ml-5'>
+                                    1 Eyes
+                                </span>
+                        </div>
+                        
+                    </div>
+
                 </div>
-                <div>meow</div>
             </AutoPlaySwipeableViews>
             <MobileStepper
+                sx={{
+                    bgcolor: "transparent",
+                    opacity: "0.6",
+                    '& .MuiMobileStepper-dot': {
+                        backgroundColor: 'white',
+                    },
+                    '& .MuiMobileStepper-dotActive': {
+                        backgroundColor: '#9D9FE2',
+                    },
+                }}
                 steps={maxSteps}
                 position="static"
                 activeStep={activeStep}
@@ -96,8 +95,19 @@ function PaymentCarousel() {
                         size="small"
                         onClick={handleNext}
                         disabled={activeStep === maxSteps - 1}
+                        sx={{
+                            '&.Mui-disabled': {
+                                color: '#9D9FE2', // Ensuring disabled button text color is grey
+                            },
+                            color: activeStep === maxSteps - 1 ? '#9D9FE2' : 'white',
+                            '.MuiButton-startIcon > *': {
+                                color: activeStep === maxSteps - 1 ? '#9D9FE2' : 'white',
+                            },
+                            '&:hover': {
+                                bgcolor: 'rgba(255, 255, 255, 0.12)',
+                            },
+                        }}
                     >
-                        Next
                         {theme.direction === 'rtl' ? (
                             <KeyboardArrowLeft />
                         ) : (
@@ -106,13 +116,26 @@ function PaymentCarousel() {
                     </Button>
                 }
                 backButton={
-                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}
+                        sx={{
+                            '&.Mui-disabled': {
+                                color: '#9D9FE2', // Ensuring disabled button text color is grey
+                            },
+                            color: activeStep === 0 ? '#9D9FE2' : 'white',
+                            '.MuiButton-startIcon > *': {
+                                color: activeStep === maxSteps - 1 ? '#9D9FE2' : 'white',
+                            },
+                            '&:hover': {
+                                bgcolor: 'rgba(255, 255, 255, 0.12)',
+                            },
+                        }}
+                    >
+
                         {theme.direction === 'rtl' ? (
                             <KeyboardArrowRight />
                         ) : (
                             <KeyboardArrowLeft />
                         )}
-                        Back
                     </Button>
                 }
             />
