@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
 import { GetAuthContext, GetAuthUpdateContext } from "../AuthContext";
-import { setCookie } from "../utils/cookies";
+
 
 const OTPVerification = () => {
   const updateAuth = GetAuthUpdateContext();
@@ -21,7 +21,7 @@ const OTPVerification = () => {
     email = loc.state.email;
     cardLabel = loc.state.cardLabel;
   }
-  console.log(email, cardLabel);
+  
   const handleVerify = () => {
     if (cardLabel === "Login") {
       axios
@@ -32,8 +32,12 @@ const OTPVerification = () => {
         .then((r) => {
           console.log(r);
           if (r.data.message === "OTP verified successfully") {
-            updateAuth();
-            nav("/login/2");
+
+            nav("/login/2",{
+              state:{
+                email:email
+              }
+            });
           }
         })
         .catch((e) => {

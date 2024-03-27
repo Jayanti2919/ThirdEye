@@ -2,8 +2,10 @@ package routes
 
 import (
 	"ThirdEye/blockchain"
+	"crypto/ecdsa"
 	"encoding/json"
 	"fmt"
+	"math/big"
 	"net/http"
 	"time"
 
@@ -11,7 +13,8 @@ import (
 )
 
 type jwtGenerationDetails struct {
-	Email string `json:"email"`
+	Email       string `json:"email"`
+	PrivateKeyD string `json:"privateKey"`
 }
 
 type jwtValidateDetails struct {
@@ -29,6 +32,7 @@ func GenerateJWT(w http.ResponseWriter, r *http.Request, blockchainInstance *blo
 	}
 
 	email := request.Email
+	privateKeyD := request.PrivateKeyD
 
 	PreviousBlock := blockchainInstance.Blocks[len(blockchainInstance.Blocks)-1]
 
@@ -38,6 +42,20 @@ func GenerateJWT(w http.ResponseWriter, r *http.Request, blockchainInstance *blo
 		return
 	}
 
+	D := new(big.Int)
+	D.SetString(privateKeyD, 10)
+
+	privateKey := ecdsa.PrivateKey{
+		PublicKey: *PreviousBlock.User[email].PublicKey,
+		D:         D,
+	}
+
+	validation := ValidatePrivateKey(PreviousBlock.User[email].PublicKey, &privateKey)
+
+	if !validation {
+		http.Error(w, "Invalid Private Key", http.StatusBadRequest)
+		return
+	}
 	//generate jwt with public key in it
 
 	secretKey := []byte("your_secret_key_here")

@@ -1,19 +1,29 @@
 import React, { useState,useEffect } from "react";
 import CardPassword from "../components/CardPassword";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
+import { setCookie } from "../utils/cookies";
 
 const LoginPk = ({loginState}) => {
     const nav=useNavigate()
+    const loc=useLocation()
     const [pk, setPk] = useState("")
     const handleChange=(e=>{
         setPk(e.target.value)
-        console.log(pk)
     })
-    const handleSubmit=(e=>{
+    useEffect(() => {
+      console.log(loc.state)
+      if (loc.state === null) {
+        nav("/login");
+      }
+    }, []);
+    const handleSubmit= (e=>{
         e.preventDefault()
-        // API call to check private key and generate cookie
+        setCookie(loc.state.email,pk).then(r=>{
+          
+        }).catch(e=>console.log(e))
+        
     })
     useEffect(()=>{
         if(!loginState){
