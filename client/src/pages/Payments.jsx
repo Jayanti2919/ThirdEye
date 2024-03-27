@@ -45,11 +45,11 @@ const Payments = () => {
                       width: "70%",
                       '& .MuiOutlinedInput-root': {
                         '& fieldset': {
-                          borderColor: '#FFF', // Border color for default state in dark mode
+                          borderColor: '#FFF',
                           opacity: 0.5
                         },
                         '&:hover fieldset': {
-                          borderColor: '#FFF', // Border color for hover state in dark mode
+                          borderColor: '#FFF',
                           opacity: 1
                         },
                         '&.Mui-focused fieldset': {
@@ -57,7 +57,7 @@ const Payments = () => {
                         },
                       },
                       '& .MuiInputLabel-root': {
-                        color: '#FFF', // Label color in dark mode
+                        color: '#FFF',
                       },
                       '& .MuiInputBase-input': {
                         color: '#FFF', // Text color in dark mode
