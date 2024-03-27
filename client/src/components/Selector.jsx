@@ -47,10 +47,6 @@ const colors = {
     "secondary": "#F1EFEF",
     "tertiary": "#353B64",
     "accent": "#9D9FE2",
-    900: "#0E0C0D",
-    800: "#F1EFEF",
-    600: "#353B64",
-    100: "#9D9FE2",
 }
 
 const Button = React.forwardRef(function Button(props, ref) {
@@ -70,7 +66,7 @@ Button.propTypes = {
 
 const StyledButton = styled(Button, { shouldForwardProp: () => true })(
   ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   min-width: 320px;
@@ -115,12 +111,13 @@ const StyledButton = styled(Button, { shouldForwardProp: () => true })(
 
 const Listbox = styled('ul')(
   ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   padding: 6px;
   margin: 12px 0;
   min-width: 320px;
+  width:100%;
   border-radius: 12px;
   overflow: auto;
   outline: 0px;
@@ -186,6 +183,7 @@ const Option = styled(BaseOption)(
   padding: 8px;
   border-radius: 8px;
   cursor: default;
+  margin:2px;
 
   &:last-of-type {
     border-bottom: none;
@@ -215,8 +213,9 @@ const Option = styled(BaseOption)(
   }
 
   &:hover:not(.${optionClasses.disabled}) {
-    background-color: ${theme.palette.mode === 'dark' ? colors[800] : colors[100]};
-    color: ${theme.palette.mode === 'dark' ? colors[300] : colors[900]};
+    background-color: ${colors['accent']};
+    opacity:0.6;
+    color: ${colors['primary']};
   }
   `,
 );
