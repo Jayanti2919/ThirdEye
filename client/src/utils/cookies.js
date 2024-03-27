@@ -8,8 +8,10 @@ export const setCookie = async (email, privateKey) => {
             privateKey
         })
         Cookies.set('myCookie', response, { expires: 1 });
+        return true
     } catch (e) {
         console.log(e)
+        return false
     }
 
 }

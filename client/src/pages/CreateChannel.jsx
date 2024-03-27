@@ -24,6 +24,7 @@ const CreateChannel = () => {
       .put(`${import.meta.env.VITE_API_URL}/user/updateUser`, { email: loc.state.email, channelName: channelName, channelDesc: channelDesc, profilePic: "" })
       .then((r)=>{
         alert(r.data.message);
+        
         nav('/home')
       }).catch((e)=>{
         console.log(e);
