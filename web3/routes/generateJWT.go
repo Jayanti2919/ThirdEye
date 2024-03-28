@@ -70,6 +70,7 @@ func GenerateJWT(w http.ResponseWriter, r *http.Request, blockchainInstance *blo
 		http.Error(w, "Error generating jwt", http.StatusBadRequest)
 		// return "", err
 	}
+	fmt.Println(signedToken)
 
 	fmt.Fprintf(w, "%s", signedToken)
 	// return signedToken, nil

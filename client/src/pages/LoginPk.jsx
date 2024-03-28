@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from "react";
 import CardPassword from "../components/CardPassword";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import ParticlesComponent from "../components/ParticleComponent";
 import { setCookie } from "../utils/cookies";
+import { GetAuthUpdateContext } from "../AuthContext";
 
 const LoginPk = ({loginState}) => {
+  const toggle=GetAuthUpdateContext()
     const nav=useNavigate()
     const loc=useLocation()
     const [pk, setPk] = useState("")
@@ -13,18 +14,20 @@ const LoginPk = ({loginState}) => {
         setPk(e.target.value)
     })
     useEffect(() => {
-      console.log(loc.state)
       if (loc.state === null) {
         nav("/login");
       }
     }, []);
-    const handleSubmit= (e=>{
-        e.preventDefault()
-        setCookie(loc.state.email,pk).then(r=>{
-          
-        }).catch(e=>console.log(e))
-        
-    })
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setCookie(loc.state.email, pk).then(r=>{
+        if (r) {
+          toggle()
+        } else{
+          setPk("")
+        }
+      })
+    };
     useEffect(()=>{
         if(!loginState){
             nav('/login')
@@ -49,6 +52,7 @@ const LoginPk = ({loginState}) => {
         cardLabel="Login"
         txtLabel="Private Key"
         buttonLabel="Sign with Private Key"
+        value={pk}
         setAction={handleChange}
         handleSubmit={handleSubmit}
         />

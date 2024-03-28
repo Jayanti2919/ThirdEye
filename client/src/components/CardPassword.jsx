@@ -10,6 +10,7 @@ const CardPassword = ({
   buttonLabel,
   setAction,
   handleSubmit,
+  value
 }) => {
     const [show, setShow] = useState(false)
   return (
@@ -38,6 +39,7 @@ const CardPassword = ({
                   </IconButton>
                 </InputAdornment>
               }
+              value={value}
               onChange={setAction}
               label="Password"
             />
