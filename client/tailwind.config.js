@@ -10,6 +10,7 @@ export default {
       secondary: "#F1EFEF",
       tertiary: "#353B64",
       accent: "#9D9FE2",
+      warn: "#f74343",
     },
     extend: {
       fontFamily: {
