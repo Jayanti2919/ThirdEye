@@ -52,7 +52,7 @@ const OTPVerification = () => {
           otp: otp,
         })
         .then((r) => {
-          console.log(r);
+          //console.log(r);
           if (r.status === 200) {
             alert(
               "Your private key is generated. A download will start shortly. Please keep it safe. You will need it to login. Your private key is not stored and can never be retrieved if lost!"
