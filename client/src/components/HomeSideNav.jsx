@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
+import Cookies from "js-cookie";
 import {
   AccountBalanceWalletRounded,
   SubscriptionsRounded,
@@ -200,7 +201,13 @@ const HomeSideNav = () => {
         <li>
           {" "}
           <Tooltip title="Sign Out">
-            <IconButton onClick={() => handleNavigation("/login")}>
+            <IconButton
+              onClick={() => {
+                Cookies.remove("myCookie")
+                
+                handleNavigation("/");
+              }}
+            >
               <LogoutRounded />
             </IconButton>
           </Tooltip>
