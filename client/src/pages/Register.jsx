@@ -35,7 +35,8 @@ const Register = () => {
           alert('User already registered')
           nav('/login')
         } else {
-          alert(r.data.message)
+          console.log(e.response.data.message)
+          alert(e.response.data.message)
           setEmail('')
         }
       }).finally(()=>setOpen(false));
