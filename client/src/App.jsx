@@ -15,6 +15,7 @@ import Payments from "./pages/Payments";
 import CreateChannel from "./pages/CreateChannel";
 import UploadVideo from "./pages/UploadVideo";
 import Cookies from "js-cookie";
+import { authorizeCookie } from "./utils/cookies";
 
 export default function App() {
   const auth = GetAuthContext();
@@ -23,11 +24,15 @@ export default function App() {
   console.log("app:", auth);
 
   useEffect(() => {
-    const cookie = Cookies.get("myCookie");
-    if (cookie) {
-      console.log("email:", JSON.parse(cookie));
-      toggle()
+    const fun=async()=>{
+      // const cookie = Cookies.get("myCookie");
+      if (await authorizeCookie()) {
+        // console.log("email:", JSON.parse(cookie));
+        console.log("hii")
+        toggle()
+      }
     } 
+    fun()
   }, []);
   return (
     <div className="min-h-screen bg-primary">

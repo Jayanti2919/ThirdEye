@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
+import Cookies from "js-cookie";
 import {
   AccountBalanceWalletRounded,
   SubscriptionsRounded,
@@ -15,6 +16,7 @@ import {
   HomeRounded,
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { GetUnAuthContext } from "../AuthContext";
 
 const HomeSideNav = () => {
   const nav = useNavigate();
@@ -25,7 +27,7 @@ const HomeSideNav = () => {
   const [spendings, setSpendings] = useState(40);
   const [walletDetails, setWalletDetails] = useState(false);
   const [showEyes, setShowEyes] = useState(false);
-
+  const toggleSignOut=GetUnAuthContext()
   let details = [
     {
       icon: <AlternateEmailRounded />,
@@ -200,7 +202,13 @@ const HomeSideNav = () => {
         <li>
           {" "}
           <Tooltip title="Sign Out">
-            <IconButton onClick={() => handleNavigation("/login")}>
+            <IconButton
+              onClick={() => {
+                Cookies.remove("myCookie")
+                toggleSignOut()
+                handleNavigation("/");
+              }}
+            >
               <LogoutRounded />
             </IconButton>
           </Tooltip>

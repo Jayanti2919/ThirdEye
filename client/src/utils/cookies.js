@@ -22,23 +22,29 @@ export const setCookie = async(email, privateKey) => {
     });
 };
 
-export const authorizeCookie = async (email, cookie) => {
-  const jwt = Cookies.get("myCookie");
-  if (jwt) {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/user/validateJWT",
-        {
-          email,
-          jwt,
+export const authorizeCookie = async () => {
+  const cookie = JSON.parse(Cookies.get("myCookie"));
+  if(cookie){
+    const email=cookie.email
+    const jwt=cookie.jwt
+    if (jwt) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/user/validateJWT",
+          {
+            email,
+            jwt,
+          }
+          );
+          return response;
+        } catch (e) {
+          console.log(e);
+          return false;
         }
-      );
-      return response;
-    } catch (e) {
-      console.log(e);
+      } else {
+        return false;
+      }
+    } else{
       return false;
     }
-  } else {
-    return false;
-  }
 };

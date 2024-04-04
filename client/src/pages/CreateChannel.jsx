@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import ParticlesComponent from "../components/ParticleComponent";
@@ -9,8 +9,8 @@ import axios from "axios";
 const CreateChannel = () => {
   const nav = useNavigate();
   const loc = useLocation();
-  const [channelName, setChannelName] = useState('');
-  const [channelDesc, setChannelDesc] = useState('');
+  const [channelName, setChannelName] = useState("");
+  const [channelDesc, setChannelDesc] = useState("");
 
   useEffect(() => {
     if (loc.state === null) {
@@ -21,15 +21,25 @@ const CreateChannel = () => {
   const handleCreateChannel = (e) => {
     e.preventDefault();
     axios
-      .put(`${import.meta.env.VITE_API_URL}/user/updateUser`, { email: loc.state.email, channelName: channelName, channelDesc: channelDesc, profilePic: "" })
-      .then((r)=>{
+      .put(`${import.meta.env.VITE_API_URL}/user/updateUser`, {
+        email: loc.state.email,
+        channelName: channelName,
+        channelDesc: channelDesc,
+        profilePic: "",
+      })
+      .then((r) => {
         alert(r.data.message);
-        
-        nav('/home')
-      }).catch((e)=>{
+
+        nav("/login/2", {
+          state: {
+            email: loc.state.email,
+          },
+        });
+      })
+      .catch((e) => {
         console.log(e);
         alert(e);
-      })
+      });
   };
 
   return (
@@ -59,7 +69,9 @@ const CreateChannel = () => {
         <div className="mt-6 flex flex-col gap-5">
           <TextField
             label="Channel Name"
-            onChange={(e)=>{setChannelName(e.target.value)}}
+            onChange={(e) => {
+              setChannelName(e.target.value);
+            }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -75,7 +87,9 @@ const CreateChannel = () => {
           />
           <TextField
             label="Channel Description"
-            onChange={(e)=>{setChannelDesc(e.target.value)}}
+            onChange={(e) => {
+              setChannelDesc(e.target.value);
+            }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {

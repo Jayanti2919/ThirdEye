@@ -23,6 +23,7 @@ const LoginPk = ({loginState}) => {
       setCookie(loc.state.email, pk).then(r=>{
         if (r) {
           toggle()
+          nav("/home")
         } else{
           setPk("")
         }
