@@ -4,13 +4,26 @@ import HomeSideNav from "../components/HomeSideNav";
 import { TextField, Input } from "@mui/material";
 import Selector from "../components/Selector";
 import { CloseRounded } from "@mui/icons-material";
-import ButtonBase from '@mui/material/ButtonBase';
-import styled from "styled-components";
-import Typography from '@mui/material/Typography';
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 const UploadVideo = () => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
+  const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   return (
     <div className="text-secondary overflow-x-hidden">
       <div className="absolute h-screen justify-center items-center flex left-10 px-5">
@@ -60,7 +73,6 @@ const UploadVideo = () => {
               label="Description"
               multiline
               maxRows={4}
-              rows={4}
               variant="filled"
               size="medium"
               sx={{
@@ -162,7 +174,59 @@ const UploadVideo = () => {
               Maximum of 5 tags allowed!
             </span>
           </form>
-          <form action="">
+          <form action="" className="flex flex-col px-20 gap-10">
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              sx={{
+                backgroundColor: "#9D9FE2",
+              }}
+            >
+              Upload video file
+              <VisuallyHiddenInput
+                type="file"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setIsVideoUploaded(true);
+                }}
+              />
+            </Button>
+            <span
+              className={`text-warn ${isVideoUploaded ? "block" : "hidden"}`}
+            >
+              If you upload this video, it will be stored on IPFS forever with
+              no guaranteeed way of deleting it in the future. Please be wise
+              with what you upload.
+            </span>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              sx={{
+                backgroundColor: "#9D9FE2",
+              }}
+            >
+              Upload thumbnail file
+              <VisuallyHiddenInput
+                type="file"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setIsVideoUploaded(true);
+                }}
+              />
+            </Button>
+            <span
+              className={`text-warn ${isVideoUploaded ? "block" : "hidden"}`}
+            >
+              If you upload this image, it will be stored on IPFS forever with
+              no guaranteeed way of deleting it in the future. Please be wise
+              with what you upload.
+            </span>
           </form>
         </div>
       </div>
