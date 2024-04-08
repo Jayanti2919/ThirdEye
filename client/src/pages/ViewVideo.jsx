@@ -9,6 +9,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import SubscriptionsRoundedIcon from "@mui/icons-material/SubscriptionsRounded";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
+import { useNavigate } from "react-router-dom";
 
 const ViewVideo = () => {
   const videoOptions = {
@@ -24,11 +25,21 @@ const ViewVideo = () => {
 
   const [liked, setLiked] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const nav = useNavigate();
 
   return (
     <div>
-      <div className="overflow-x-hidden text-secondary px-10">
+      <div className="overflow-x-hidden text-secondary px-10 relative">
         <HomeTopNav />
+        <img
+          src="/thirdeye_logo_white.svg"
+          alt="home"
+          className="h-10 w-10 cursor-pointer ml-5 absolute top-5 left-1"
+          onClick={(e) => {
+            e.preventDefault();
+            nav("/home");
+          }}
+        />
         <VideoPlayer options={videoOptions} />
         <h2 className="text-4xl mt-5">Video Title</h2>
         <p className="text-accent text-xs mt-2">Video Description</p>
