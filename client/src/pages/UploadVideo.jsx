@@ -194,13 +194,6 @@ const UploadVideo = () => {
                 }}
               />
             </Button>
-            <span
-              className={`text-warn ${isVideoUploaded ? "block" : "hidden"}`}
-            >
-              If you upload this video, it will be stored on IPFS forever with
-              no guaranteeed way of deleting it in the future. Please be wise
-              with what you upload.
-            </span>
             <Button
               component="label"
               role={undefined}
@@ -227,6 +220,7 @@ const UploadVideo = () => {
               no guaranteeed way of deleting it in the future. Please be wise
               with what you upload.
             </span>
+            <Button variant="contained">Upload Video and Thumbnail files</Button>
           </form>
         </div>
       </div>

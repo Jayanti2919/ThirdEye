@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 const VideoCard = ({ title, creator, thumbnailHash, likeCount, viewCount }) => {
+  const nav = useNavigate();
   return (
-    <div className="text-secondary bg-tertiary gap-1 flex flex-col items-start px-3 py-5 rounded-md cursor-pointer">
+    <div className="text-secondary bg-tertiary gap-1 flex flex-col items-start px-3 py-5 rounded-md cursor-pointer"
+      onClick={(e)=>{
+        console.log("Navigating")
+        nav(`/home/viewVideo/${title}`);
+      }}
+    >
       <img
         src={`https://ipfs.io/ipfs/${thumbnailHash}`}
         alt="thumbnail"

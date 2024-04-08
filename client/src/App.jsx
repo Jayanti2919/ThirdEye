@@ -17,6 +17,7 @@ import UploadVideo from "./pages/UploadVideo";
 import Cookies from "js-cookie";
 import { authorizeCookie } from "./utils/cookies";
 import EditChannel from "./pages/EditChannel";
+import ViewVideo from "./pages/ViewVideo";
 
 export default function App() {
   const auth = GetAuthContext();
@@ -73,6 +74,10 @@ export default function App() {
         <Route
           path="/home/editChannel"
           element={auth ? <EditChannel /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/home/viewVideo/:id"
+          element={auth ? <ViewVideo /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>
