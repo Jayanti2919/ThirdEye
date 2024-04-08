@@ -46,13 +46,17 @@ const HomeTopNav = () => {
               <div
                 className={`bg-secondary text-primary ${
                   profileDetails ? "block" : "hidden"
-                } absolute h-fit px-10 right-5 top-16 rounded-md border-solid border-2 border-primary opacity-90 py-5 flex flex-col  gap-5`}
+                } absolute z-10 h-fit px-10 right-5 top-16 rounded-md border-solid border-2 border-primary opacity-90 py-5 flex flex-col  gap-5`}
               >
                 <Button
                   sx={{
                     alignItems: "start",
                     justifyContent: "start",
                     color: "#0E0C0D",
+                  }}
+                  onClick={(e)=>{
+                    e.preventDefault();
+                    nav("/home/editChannel")
                   }}
                 >
                   <SettingsApplicationsRounded sx={{ marginLeft: "5px", marginRight:'10px' }} />
