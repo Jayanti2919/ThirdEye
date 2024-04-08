@@ -14,7 +14,7 @@ const VideoPlayer = ({ options }) => {
   }, [options]);
 
   return (
-    <div className="mt-5 px-10">
+    <div className="mt-5">
       <div
         data-vjs-player
         style={{
