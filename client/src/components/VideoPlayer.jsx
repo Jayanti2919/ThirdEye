@@ -21,6 +21,8 @@ const VideoPlayer = ({ options }) => {
         height: "450px",
         minWidth: "800px",
         minHeight: "450px",
+        marginTop: "20px",
+        marginLeft: "20px",
       }}
     >
       <video
