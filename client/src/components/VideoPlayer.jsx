@@ -14,27 +14,29 @@ const VideoPlayer = ({ options }) => {
   }, [options]);
 
   return (
-    <div
-      data-vjs-player
-      style={{
-        width: "800px",
-        height: "450px",
-        minWidth: "800px",
-        minHeight: "450px",
-        marginTop: "20px",
-        marginLeft: "20px",
-      }}
-    >
-      <video
-        ref={videoRef}
-        className="video-js vjs-big-play-centered"
+    <div className="mt-5 px-10">
+      <div
+        data-vjs-player
         style={{
-          width: "100%",
-          height: "100%",
+          width: "800px",
+          height: "450px",
           minWidth: "800px",
           minHeight: "450px",
+          marginTop: "20px",
+          marginLeft: "20px",
         }}
-      />
+      >
+        <video
+          ref={videoRef}
+          className="video-js vjs-big-play-centered"
+          style={{
+            width: "100%",
+            height: "100%",
+            minWidth: "800px",
+            minHeight: "450px",
+          }}
+        />
+      </div>
     </div>
   );
 };
