@@ -4,12 +4,14 @@ package main
 import (
 	"ThirdEye/blockchain"
 	"ThirdEye/routes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	shell "github.com/ipfs/go-ipfs-api"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -48,6 +50,66 @@ func main() {
 		routes.ValidateJWT(w, r, blockchainInstance)
 	}).Methods("POST")
 	// validate private key
+
+	r.HandleFunc("/uploadToIPFS", func(w http.ResponseWriter, r *http.Request) {
+		sh := shell.NewShell("localhost:5001")
+
+		// Parse the multipart form in the request
+		err := r.ParseMultipartForm(10 << 20) // Max memory 10MB
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		// Get the file from the form
+		file, _, err := r.FormFile("video")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		fileThumbnail, _, err := r.FormFile("thumbnail")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer fileThumbnail.Close()
+
+		// Add the file to IPFS
+		cid, err := sh.Add(file)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		cidThumbnail, err := sh.Add(fileThumbnail)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		response := map[string]string{
+			"cid":          cid,
+			"cidThumbnail": cidThumbnail,
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(jsonResponse)
+	}).Methods("POST")
+	// r.HandleFunc("/uploadToIPFS", func(w http.ResponseWriter, r *http.Request) {
+	// 	sh := shell.NewShell("localhost:5001")
+
+	// 	cid, err := sh.Add(strings.NewReader("Hello World"))
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 	}
+	// 	fmt.Print("CID:", cid)
+	// }).Methods("POST")
 
 	corsHandler := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),

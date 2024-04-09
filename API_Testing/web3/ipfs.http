@@ -1,0 +1,5 @@
+POST http://localhost:8000/uploadToIPFS HTTP/1.1
+content-type: application/json
+{
+    
+}

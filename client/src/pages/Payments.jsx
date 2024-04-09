@@ -4,13 +4,24 @@ import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartCheckoutRoundedIcon from '@mui/icons-material/ShoppingCartCheckoutRounded';
 import PaymentCarousel from "../components/PaymentCarousel";
+import Cookies from "js-cookie";
 
 const Payments = () => {
+
   const nav = useNavigate();
-  const handleRedirect = (e, path) => {
+  const [eyes, setEyes] = React.useState(null)
+  const [pk, setPk] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const handlePayment = (e) => {
     e.preventDefault();
-    nav(path);
+
   };
+  React.useEffect(() => {
+    // const cookie = JSON.parse(Cookies.get("myCookie"));
+    // if (cookie) {
+      // setEmail(cookie.email)
+    // }
+    }, [])
 
   return (
     <div className="bg-primary relative z-10 overflow-x-hidden">
@@ -29,7 +40,7 @@ const Payments = () => {
 
         <div className=" h-[200vh] md:h-full w-full bg-white-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border-2 border-accent border-opacity-20 grid md:grid-cols-2">
           <div className=" flex justify-center items-center relative">
-             <PaymentCarousel />
+            <PaymentCarousel setEyes={setEyes} eyes={eyes} />
           </div>
           <div className="flex items-center justify-end md:py-52 lg:py-10 md:pr-10 lg:pl-52 ">
             <div className=" h-[50vh] md:h-full w-full rounded-xl grid grid-cols-3 px-3 md:px-0 opacity-85 shadow">
@@ -38,6 +49,7 @@ const Payments = () => {
 
                   <h3 className="font-bold uppercase">Channel Name</h3>
                   <TextField
+                    onChange={(e) => { setPk(e.target.value) }}
                     id="outlined-required"
                     label="Private Key"
                     variant="outlined"
@@ -94,8 +106,8 @@ const Payments = () => {
               </div>
               <div className="bg-primary border-l-2 border-opacity-35 border-accent rounded-e-xl grid text-secondary">
                 <div className="grid justify-center items-center pt-10">
-                  <div className="h-10 w-10 rounded-full bg-accent flex justify-center items-center">
-                    <ShoppingCartCheckoutRoundedIcon />
+                  <div className="h-10 w-10 rounded-full bg-accent flex cursor-pointer opacity-75 hover:opacity-100 justify-center items-center">
+                    <ShoppingCartCheckoutRoundedIcon onclick={handlePayment} />
                   </div>
                 </div>
                 <div className="flex flex-col-reverse items-end pb-10">

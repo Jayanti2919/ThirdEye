@@ -12,10 +12,9 @@ import NumberInputBasic from './NumberInput';
 
 const AutoPlaySwipeableViews = (SwipeableViews);
 
-function PaymentCarousel() {
+function PaymentCarousel({setEyes,eyes}) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    const [eyes, setEyes] = React.useState(1)
     const maxSteps = 2;
 
     const handleNext = () => {
@@ -41,7 +40,7 @@ function PaymentCarousel() {
                 <div className=' text-secondary flex flex-col justify-center items-center gap-5 mb-5'>
                     <p className='uppercase font-semibold tracking-[10px] text-2xl text-accent'>Order Details</p>
                     <img src={logo} alt="" className='h-40 w-40' />
-                    <NumberInputBasic />
+                    <NumberInputBasic value={eyes} setValue={setEyes}/>
                 </div >
                 <div className=' text-secondary flex flex-col justify-between h-full pb-10 items-center '>
                     <p className='uppercase font-semibold tracking-[10px] text-2xl text-accent'>pricing</p>
