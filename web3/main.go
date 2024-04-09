@@ -4,6 +4,7 @@ package main
 import (
 	"ThirdEye/blockchain"
 	"ThirdEye/routes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -67,6 +68,12 @@ func main() {
 			return
 		}
 		defer file.Close()
+		fileThumbnail, _, err := r.FormFile("thumbnail")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer fileThumbnail.Close()
 
 		// Add the file to IPFS
 		cid, err := sh.Add(file)
@@ -74,8 +81,25 @@ func main() {
 			fmt.Println(err)
 			return
 		}
+		cidThumbnail, err := sh.Add(fileThumbnail)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-		fmt.Print("CID:", cid)
+		response := map[string]string{
+			"cid":          cid,
+			"cidThumbnail": cidThumbnail,
+		}
+
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(jsonResponse)
 	}).Methods("POST")
 	// r.HandleFunc("/uploadToIPFS", func(w http.ResponseWriter, r *http.Request) {
 	// 	sh := shell.NewShell("localhost:5001")

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeTopNav from "../components/HomeTopNav";
 import HomeSideNav from "../components/HomeSideNav";
 import { TextField, Input } from "@mui/material";
@@ -7,6 +7,7 @@ import { CloseRounded } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import axios from "axios";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -23,7 +24,30 @@ const VisuallyHiddenInput = styled("input")({
 const UploadVideo = () => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
+  const [videoFile, setVideoFile] = useState(null);
+  const [thumbnailFile, setThumbnailFile] = useState(null);
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
+
+  const handleSubmit=() => {
+  
+      const formData = new FormData();
+      formData.append("video", videoFile);
+      formData.append("thumbnail", thumbnailFile);
+      
+      axios
+        .post("http://localhost:8000/uploadToIPFS", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    
+  }
   return (
     <div className="text-secondary overflow-x-hidden">
       <div className="absolute h-screen justify-center items-center flex left-10 px-5">
@@ -190,6 +214,7 @@ const UploadVideo = () => {
                 type="file"
                 onChange={(e) => {
                   e.preventDefault();
+                  setVideoFile(e.target.files[0]);
                   setIsVideoUploaded(true);
                 }}
               />
@@ -210,6 +235,7 @@ const UploadVideo = () => {
                 onChange={(e) => {
                   e.preventDefault();
                   setIsVideoUploaded(true);
+                  setThumbnailFile(e.target.files[0]);
                 }}
               />
             </Button>
@@ -220,7 +246,9 @@ const UploadVideo = () => {
               no guaranteeed way of deleting it in the future. Please be wise
               with what you upload.
             </span>
-            <Button variant="contained">Upload Video and Thumbnail files</Button>
+            <Button variant="contained" onClick={handleSubmit}>
+              Upload Video and Thumbnail files
+            </Button>
           </form>
         </div>
       </div>

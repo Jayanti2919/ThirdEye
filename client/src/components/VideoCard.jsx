@@ -11,7 +11,7 @@ const VideoCard = ({ title, creator, thumbnailHash, likeCount, viewCount }) => {
       }}
     >
       <img
-        src={`https://ipfs.io/ipfs/${thumbnailHash}`}
+        src={`http://localhost:8080/ipfs/${thumbnailHash}`}
         alt="thumbnail"
         className="w-96 h-56 bg-secondary mb-5 rounded-md"
       />
