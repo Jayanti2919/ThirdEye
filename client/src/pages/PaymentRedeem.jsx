@@ -13,9 +13,6 @@ const PaymentRedeem = () => {
   const [eyes, setEyes] = React.useState(null)
   const [pk, setPk] = React.useState("")
   const [email, setEmail] = React.useState("")
-  const handlePayment = (e) => {
-
-  };
   React.useEffect(() => {
     const cookie = JSON.parse(Cookies.get("myCookie"));
     if (cookie) {

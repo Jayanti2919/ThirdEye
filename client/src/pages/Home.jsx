@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import HomeSideNav from "../components/HomeSideNav";
 import HomeTopNav from "../components/HomeTopNav";
 import VideoCard from "../components/VideoCard";
-
+import axios from "axios";
 const Home = () => {
 
   let videos = [
@@ -67,7 +67,7 @@ const Home = () => {
   ]
   useEffect(()=>{
     axios.get(`${import.meta.env.VITE_API_URL}/videos/getTenVideos`).then(r=>{
-      console.log(e)
+      console.log(r)
     }).catch(e=>console.log(e))
   },[])
 

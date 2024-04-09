@@ -116,23 +116,19 @@ router.route("/getVideoByCreator").get(async (req, res) => {
     });
 });
 router.route("/getTenVideos").get(async (req, res) => {
-  const header = req.headers;
-  const offset = header.offset;
+  try {
+    const offset = parseInt(req.headers.offset) || 0; // Parse the offset as integer or default to 0 if not provided
 
-  const video = await Video.findAll({
-    offset: offset,
-    limit: 10,
-  })
-    .then(() => {
-      res.status(200).json({ message: video });
-    })
-    .catch((error) => {
-      console.log(error);
-      res
-        .status(500)
-        .json({ message: "Error while finding videos" });
-      return;
+    const videos = await Video.findAll({
+      offset: offset,
+      limit: 10,
     });
+
+    res.status(200).json({ message: videos });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error while finding videos" });
+  }
 });
 
 router.route("/getVideoBySubscription").get(async (req, res) => {
