@@ -53,8 +53,8 @@ const Videos = connection.define('videos', {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
-    userId: {
-        type: DataTypes.INTEGER,
+    channelName: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
 }, {
@@ -62,6 +62,7 @@ const Videos = connection.define('videos', {
     timestamps: false,
 });
 
-Videos.belongsTo(Users, { foreignKey: "userId" });
+Videos.belongsTo(Users, { foreignKey: "channelName", targetKey: "channelName" });
+
 
 module.exports = Videos;

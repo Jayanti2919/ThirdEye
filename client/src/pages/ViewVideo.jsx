@@ -9,25 +9,27 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import SubscriptionsRoundedIcon from "@mui/icons-material/SubscriptionsRounded";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const ViewVideo = () => {
+  
+  const [liked, setLiked] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const nav = useNavigate();
+  const { id } = useParams();
+  const loc=useLocation();
+  console.log(loc.state);
+  console.log(id);
   const videoOptions = {
     autoplay: true,
     controls: true,
     sources: [
       {
-        src: "/payment-bg-vid.mp4",
+        src: `http://localhost:8080/ipfs/${loc.state.videoHash}`,
         type: "video/mp4",
       },
     ],
   };
-
-  const [liked, setLiked] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
-  const nav = useNavigate();
-  const { id } = useParams();
-  console.log(id);
 
   return (
     <div>
@@ -43,11 +45,11 @@ const ViewVideo = () => {
           }}
         />
         <VideoPlayer options={videoOptions} />
-        <h2 className="text-4xl mt-5">Video Title</h2>
-        <p className="text-accent text-xs mt-2">Video Description</p>
+        <h2 className="text-4xl mt-5">{loc.state.title}</h2>
+        <p className="text-accent text-xs mt-2">{loc.state.description}</p>
         <div className="flex justify-between">
           <div className="flex gap-2 items-center">
-            <span className="text-xs">Channel Name</span>
+            <span className="text-xs">{loc.state.creator}</span>
             <IconButton
               aria-label="Subscribe"
               size="small"

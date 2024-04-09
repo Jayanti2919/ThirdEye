@@ -58,11 +58,11 @@ func main() {
 		sh := shell.NewShell("localhost:5001")
 
 		// Parse the multipart form in the request
-		err := r.ParseMultipartForm(10 << 20) // Max memory 10MB
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		// err := r.ParseMultipartForm(10 << 20) // Max memory 10MB
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	return
+		// }
 
 		// Get the file from the form
 		file, _, err := r.FormFile("video")

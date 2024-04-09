@@ -24,6 +24,7 @@ export const setCookie = async(email, privateKey) => {
 
 export const authorizeCookie = async () => {
   const cookie = JSON.parse(Cookies.get("myCookie"));
+  console.log(cookie.jwt)
   if(cookie){
     const email=cookie.email
     const jwt=cookie.jwt
