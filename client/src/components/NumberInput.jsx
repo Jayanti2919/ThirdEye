@@ -28,8 +28,8 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
     );
 });
 
-export default function NumberInputBasic() {
-    const [value, setValue] = React.useState(null);
+export default function NumberInputBasic({value,setValue}) {
+
     return (
         <NumberInput
             // aria-label="Demo number input"
