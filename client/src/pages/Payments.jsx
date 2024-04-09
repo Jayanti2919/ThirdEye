@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ShoppingCartCheckoutRoundedIcon from '@mui/icons-material/ShoppingCartCheckoutRounded';
 import PaymentCarousel from "../components/PaymentCarousel";
 import Cookies from "js-cookie";
+import axios from 'axios';
 
 const Payments = () => {
 
@@ -13,15 +14,14 @@ const Payments = () => {
   const [pk, setPk] = React.useState("")
   const [email, setEmail] = React.useState("")
   const handlePayment = (e) => {
-    e.preventDefault();
 
   };
   React.useEffect(() => {
-    // const cookie = JSON.parse(Cookies.get("myCookie"));
-    // if (cookie) {
-      // setEmail(cookie.email)
-    // }
-    }, [])
+    const cookie = JSON.parse(Cookies.get("myCookie"));
+    if (cookie) {
+      setEmail(cookie.email)
+    }
+  }, [])
 
   return (
     <div className="bg-primary relative z-10 overflow-x-hidden">
@@ -106,8 +106,29 @@ const Payments = () => {
               </div>
               <div className="bg-primary border-l-2 border-opacity-35 border-accent rounded-e-xl grid text-secondary">
                 <div className="grid justify-center items-center pt-10">
-                  <div className="h-10 w-10 rounded-full bg-accent flex cursor-pointer opacity-75 hover:opacity-100 justify-center items-center">
-                    <ShoppingCartCheckoutRoundedIcon onclick={handlePayment} />
+                  <div
+                    className="h-10 w-10 rounded-full bg-accent flex cursor-pointer opacity-75 hover:opacity-100 justify-center items-center"
+
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log("Eyes: ", eyes.toString())
+                      console.log("pk: ", pk)
+                      console.log("email: ", email)
+
+                      axios.post("http://localhost:8000/user/buyEyes",{
+                        eyes:eyes.toString(),
+                        email:email,
+                        privateKey:pk
+                      }).then(r=>{
+                        console.log(r)
+                      }).catch(e=>{
+                        console.log(e)
+                      })
+                      
+
+                    }}
+                  >
+                    <ShoppingCartCheckoutRoundedIcon />
                   </div>
                 </div>
                 <div className="flex flex-col-reverse items-end pb-10">
