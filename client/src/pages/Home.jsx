@@ -7,6 +7,7 @@ const Home = () => {
 
   let videos = [
     {
+      
       title: 'Video 1',
       creator: 'Creator 1',
       thumbnailHash: 'QmRL6x6ycb9oTXKHxRkAMfxmgprgNS1LRQHWN2qqHb6v2f',
