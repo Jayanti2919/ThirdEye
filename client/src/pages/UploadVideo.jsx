@@ -7,6 +7,7 @@ import { CloseRounded } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const VisuallyHiddenInput = styled("input")({
@@ -24,6 +25,7 @@ const VisuallyHiddenInput = styled("input")({
 const UploadVideo = () => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
+  const [email, setEmail] = useState("");
   const [videoFile, setVideoFile] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [title, setTitle] = useState("");
@@ -32,6 +34,14 @@ const UploadVideo = () => {
   const [videoHash, setVideoHash] = useState("");
   const [thumbnailHash, setThumbnailHash] = useState("");
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
+
+  useEffect(() => {
+
+    const cookie=JSON.parse(Cookies.get('myCookie'))
+    if(cookie){
+      setEmail(cookie.email)
+    }
+  }, []);
 
   const handleSubmit=() => {
   
@@ -47,11 +57,34 @@ const UploadVideo = () => {
         })
         .then((response) => {
           console.log(response.data);
+          setVideoHash(response.data.cid);
+          setThumbnailHash(response.data.cidThumbnail);
+          // handleUpdateDetails();
         })
         .catch((error) => {
           console.error(error);
         });
     
+  }
+  useEffect(() => {
+    handleUpdateDetails();
+  },[thumbnailHash])
+
+  const handleUpdateDetails=()=>{
+    console.log(title, desc, genre, tags, videoHash, thumbnailHash);
+    axios.post(`${import.meta.env.VITE_API_URL}/video/uploadVideo`, {
+      title: title,
+      description: desc,
+      genre: genre,
+      tags: tags,
+      videoHash: videoHash,
+      thumbnailHash: thumbnailHash,
+      email: email,
+    }).then((response) => {
+      console.log(response.data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
   return (
     <div className="text-secondary overflow-x-hidden">
@@ -71,6 +104,7 @@ const UploadVideo = () => {
               id="outlined-basic"
               label="Title"
               variant="outlined"
+              onChange={(e)=>{setTitle(e.target.value)}}
               size="medium"
               sx={{
                 "& .MuiInputBase-input": {
@@ -100,6 +134,7 @@ const UploadVideo = () => {
             <TextField
               id="outlined-basic"
               label="Description"
+              onChange={(e)=>{setDescription(e.target.value)}}
               multiline
               maxRows={4}
               variant="filled"
@@ -134,7 +169,7 @@ const UploadVideo = () => {
             />
 
             <div className="">
-              <Selector />
+              <Selector genre={genre} setGenre={setGenre}/>
             </div>
 
             <TextField

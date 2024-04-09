@@ -8,9 +8,12 @@ import { CssTransition } from '@mui/base/Transitions';
 import { PopupContext } from '@mui/base/Unstable_Popup';
 import { genres } from '../utils/constants';
 
-export default function Selector() {
+export default function Selector({genre, setGenre}) {
+  const handleChange = (event) => {
+    setGenre(event.target.value);
+  };
   return (
-    <Select defaultValue={genres[0]}>
+    <Select defaultValue={genres[0]} onChange={(e)=>{handleChange}}>
       {genres.map((val,idx)=>(
         <Option value={val} key={idx}>{val}</Option>
       ))}

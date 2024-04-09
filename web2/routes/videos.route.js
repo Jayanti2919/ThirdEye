@@ -16,6 +16,7 @@ router.route("/uploadVideo").post(async(req, res) => {
         user_id = user.userId;
     } else {
         res.status(400).json({message: "User not found"});
+        return;
     }
     Video.create({
         title: body.title,
@@ -30,6 +31,7 @@ router.route("/uploadVideo").post(async(req, res) => {
     }).catch((err) => {
         console.log(err);
         res.status(500).json({message: "Error uploading video details"});
+        return;
     });
 })
 
