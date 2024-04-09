@@ -4,19 +4,19 @@ import HomeSideNav from "../components/HomeSideNav";
 import { TextField, Input } from "@mui/material";
 import Selector from "../components/Selector";
 import { CloseRounded } from "@mui/icons-material";
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
   height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
+  overflow: "hidden",
+  position: "absolute",
   bottom: 0,
   left: 0,
-  whiteSpace: 'nowrap',
+  whiteSpace: "nowrap",
   width: 1,
 });
 
@@ -186,12 +186,41 @@ const UploadVideo = () => {
               }}
             >
               Upload video file
-              <VisuallyHiddenInput type="file" onChange={(e)=>{
-                e.preventDefault();
-                setIsVideoUploaded(true);
-              }}/>
+              <VisuallyHiddenInput
+                type="file"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setIsVideoUploaded(true);
+                }}
+              />
             </Button>
-            <span className={`text-warn ${isVideoUploaded? 'block': 'hidden'}`}>If you upload this video, it will be stored on IPFS forever with no guaranteeed way of deleting it in the future. Please be wise with what you upload.</span>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              sx={{
+                backgroundColor: "#9D9FE2",
+              }}
+            >
+              Upload thumbnail file
+              <VisuallyHiddenInput
+                type="file"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setIsVideoUploaded(true);
+                }}
+              />
+            </Button>
+            <span
+              className={`text-warn ${isVideoUploaded ? "block" : "hidden"}`}
+            >
+              If you upload this image, it will be stored on IPFS forever with
+              no guaranteeed way of deleting it in the future. Please be wise
+              with what you upload.
+            </span>
+            <Button variant="contained">Upload Video and Thumbnail files</Button>
           </form>
         </div>
       </div>

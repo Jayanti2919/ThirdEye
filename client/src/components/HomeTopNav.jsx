@@ -3,7 +3,11 @@ import IconButton from "@mui/material/IconButton";
 import SearchRounded from "@mui/icons-material/SearchRounded";
 import { Avatar, Button } from "@mui/material";
 import { useState } from "react";
-import { SettingsApplicationsRounded, FileUploadRounded, AddShoppingCartRounded } from "@mui/icons-material";
+import {
+  SettingsApplicationsRounded,
+  FileUploadRounded,
+  AddShoppingCartRounded,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
@@ -46,7 +50,7 @@ const HomeTopNav = () => {
               <div
                 className={`bg-secondary text-primary ${
                   profileDetails ? "block" : "hidden"
-                } absolute h-fit px-10 right-5 top-16 rounded-md border-solid border-2 border-primary opacity-90 py-5 flex flex-col  gap-5`}
+                } absolute z-10 h-fit px-10 right-5 top-16 rounded-md border-solid border-2 border-primary opacity-90 py-5 flex flex-col  gap-5`}
               >
                 <Button
                   sx={{
@@ -54,8 +58,14 @@ const HomeTopNav = () => {
                     justifyContent: "start",
                     color: "#0E0C0D",
                   }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav("/home/editChannel");
+                  }}
                 >
-                  <SettingsApplicationsRounded sx={{ marginLeft: "5px", marginRight:'10px' }} />
+                  <SettingsApplicationsRounded
+                    sx={{ marginLeft: "5px", marginRight: "10px" }}
+                  />
                   <span>Channel Settings</span>
                 </Button>
                 <Button
@@ -64,9 +74,14 @@ const HomeTopNav = () => {
                     justifyContent: "start",
                     color: "#0E0C0D",
                   }}
-                  onClick={(e) => {e.preventDefault(); nav("/home/uploadVideo")}}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav("/home/uploadVideo");
+                  }}
                 >
-                  <FileUploadRounded sx={{ marginLeft: "5px", marginRight:'10px' }} />
+                  <FileUploadRounded
+                    sx={{ marginLeft: "5px", marginRight: "10px" }}
+                  />
                   <span>Upload Video</span>
                 </Button>
                 <Button
@@ -76,7 +91,9 @@ const HomeTopNav = () => {
                     color: "#0E0C0D",
                   }}
                 >
-                  <AddShoppingCartRounded sx={{ marginLeft: "5px", marginRight:'10px' }} />
+                  <AddShoppingCartRounded
+                    sx={{ marginLeft: "5px", marginRight: "10px" }}
+                  />
                   <span>Buy Eyes</span>
                 </Button>
               </div>

@@ -27,7 +27,7 @@ const HomeSideNav = () => {
   const [spendings, setSpendings] = useState(40);
   const [walletDetails, setWalletDetails] = useState(false);
   const [showEyes, setShowEyes] = useState(false);
-  const toggleSignOut=GetUnAuthContext()
+  const toggleSignOut = GetUnAuthContext();
   let details = [
     {
       icon: <AlternateEmailRounded />,
@@ -59,7 +59,7 @@ const HomeSideNav = () => {
     nav(path);
   };
   return (
-    <div className="text-primary cursor-pointer fixed z-20 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-90">
+    <div className="text-primary cursor-pointer fixed z-50 h-[90vh] w-14 px-2 rounded-full py-10 bg-secondary hidden md:block opacity-90">
       <ul className="flex flex-col justify-between h-full py-5 text-[10px] items-center">
         <li>
           {" "}
@@ -204,8 +204,8 @@ const HomeSideNav = () => {
           <Tooltip title="Sign Out">
             <IconButton
               onClick={() => {
-                Cookies.remove("myCookie")
-                toggleSignOut()
+                Cookies.remove("myCookie");
+                toggleSignOut();
                 handleNavigation("/");
               }}
             >
