@@ -9,7 +9,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import SubscriptionsRoundedIcon from "@mui/icons-material/SubscriptionsRounded";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ViewVideo = () => {
   const videoOptions = {
@@ -26,6 +26,8 @@ const ViewVideo = () => {
   const [liked, setLiked] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const nav = useNavigate();
+  const { id } = useParams();
+  console.log(id);
 
   return (
     <div>
