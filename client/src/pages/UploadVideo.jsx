@@ -26,6 +26,11 @@ const UploadVideo = () => {
   const [tags, setTags] = useState([]);
   const [videoFile, setVideoFile] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [title, setTitle] = useState("");
+  const [desc, setDescription] = useState("");
+  const [genre, setGenre] = useState("");
+  const [videoHash, setVideoHash] = useState("");
+  const [thumbnailHash, setThumbnailHash] = useState("");
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
 
   const handleSubmit=() => {
