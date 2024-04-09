@@ -10,10 +10,10 @@ const Videos = require("../models/SQL/video.model");
 
 router.route("/uploadVideo").post(async (req, res) => {
   const body = req.body;
-  let user_id = 1;
+  let channel_name = "";
   const user = await User.findOne({ where: { email: body.email } });
   if (user) {
-    user_id = user.userId;
+    channel_name = user.channelName;
   } else {
     res.status(400).json({ message: "User not found" });
     return;
@@ -23,7 +23,7 @@ router.route("/uploadVideo").post(async (req, res) => {
     description: body.description,
     videoHash: body.videoHash,
     thumbnailHash: body.thumbnailHash,
-    userId: user_id,
+    channelName: channel_name,
     genre: body.genre,
     tags: body.tags,
   })
