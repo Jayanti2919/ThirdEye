@@ -34,6 +34,9 @@ func main() {
 	r.HandleFunc("/user/buyEyes", func(w http.ResponseWriter, r *http.Request) {
 		routes.BuyEyesRoute(w, r, blockchainInstance)
 	}).Methods("POST")
+	r.HandleFunc("/user/redeemEyes", func(w http.ResponseWriter, r *http.Request) {
+		routes.RedeemEyesRoute(w, r, blockchainInstance)
+	}).Methods("POST")
 	r.HandleFunc("/user/getEyes", func(w http.ResponseWriter, r *http.Request) {
 		routes.GetEyesRoute(w, r, blockchainInstance)
 	}).Methods("POST")

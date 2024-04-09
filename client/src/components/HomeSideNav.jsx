@@ -81,11 +81,10 @@ const HomeSideNav = () => {
             </IconButton>
           </Tooltip>
           <div
-            className={`${
-              walletDetails
+            className={`${walletDetails
                 ? "absolute bg-secondary h-50 w-[20vw] xl:px-10 rounded-md left-[140%] border-2 border-primary z-20 -top-10 p-5 text-primary "
                 : "hidden"
-            }`}
+              }`}
           >
             <div className="">
               <h3 className="text-xl text-primary font-semibold capitalize">
@@ -103,29 +102,53 @@ const HomeSideNav = () => {
                   <p className="font-medium ml-2">{detail.value}</p>
                 </div>
               ))}
+              <div className="flex gap-4 w-full">
 
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{
-                  color: "#9D9FE2",
-                  border: "1px solid #9D9FE2",
-                  padding: "2px 5px",
-                  fontSize: "10px",
-                  marginTop: "5px",
-                  ":hover": {
-                    border: "1px solid #353B64",
-                    backgroundColor: "#353B64",
-                    color: "#F1EFEF",
-                  },
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  nav("/home/payments");
-                }}
-              >
-                Buy More
-              </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    color: "#9D9FE2",
+                    border: "1px solid #9D9FE2",
+                    padding: "2px 5px",
+                    fontSize: "10px",
+                    marginTop: "5px",
+                    ":hover": {
+                      border: "1px solid #353B64",
+                      backgroundColor: "#353B64",
+                      color: "#F1EFEF",
+                    },
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav("/home/payments");
+                  }}
+                >
+                  Buy More
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    color: "#9D9FE2",
+                    border: "1px solid #9D9FE2",
+                    padding: "2px 5px",
+                    fontSize: "10px",
+                    marginTop: "5px",
+                    ":hover": {
+                      border: "1px solid #353B64",
+                      backgroundColor: "#353B64",
+                      color: "#F1EFEF",
+                    },
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav("/home/payments/redeem");
+                  }}
+                >
+                  Redeem
+                </Button>
+              </div>
             </div>
           </div>
         </li>
@@ -158,11 +181,10 @@ const HomeSideNav = () => {
             </IconButton>
           </Tooltip>
           <div
-            className={`${
-              showEyes
+            className={`${showEyes
                 ? "absolute bg-secondary h-50 w-[20vw] xl:px-10 rounded-md left-[140%] border-2 border-primary z-20 top-0 p-5 text-primary"
                 : "hidden"
-            }`}
+              }`}
           >
             <div className="">
               <h3 className="text-xl text-primary font-semibold uppercase">

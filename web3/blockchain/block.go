@@ -84,3 +84,23 @@ func BuyEyeBlock(email string, prevBlockHash []byte, prevUserMap map[string]*Use
 	return block, err
 
 }
+func RedeemEyesBlock(email string, prevBlockHash []byte, prevUserMap map[string]*User, privateKey *ecdsa.PrivateKey, eyes float64) (*Block, error) {
+	userMap := make(map[string]*User)
+	for key, value := range prevUserMap {
+		userMap[key] = value
+	}
+
+	userMap[email].Eyes -= eyes
+
+	r, s, err := signTransaction(privateKey, userMap[email])
+	if err != nil {
+		userMap[email].Eyes -= eyes
+		return nil, errors.New("Error creating transaction")
+	}
+
+	transaction := createTransaction(userMap[email].PublicKey, userMap[email].PublicKey, eyes, *r, *s)
+	block, err := MineBlock(userMap, prevBlockHash, transaction)
+
+	return block, err
+
+}
