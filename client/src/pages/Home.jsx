@@ -66,7 +66,7 @@ const Home = () => {
 
   ]
   useEffect(()=>{
-    axios.get(`${import.meta.env.VITE_API_URL}/videos/getTenVideos`).then(r=>{
+    axios.get(`${import.meta.env.VITE_API_URL}/video/getTenVideos`).then(r=>{
       console.log(r)
     }).catch(e=>console.log(e))
   },[])
