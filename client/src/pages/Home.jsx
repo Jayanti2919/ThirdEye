@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import HomeSideNav from "../components/HomeSideNav";
 import HomeTopNav from "../components/HomeTopNav";
 import VideoCard from "../components/VideoCard";
@@ -65,6 +65,11 @@ const Home = () => {
     },
 
   ]
+  useEffect(()=>{
+    axios.get(`${import.meta.env.VITE_API_URL}/videos/getTenVideos`).then(r=>{
+      console.log(e)
+    }).catch(e=>console.log(e))
+  },[])
 
   return (
     <div className="relative overflow-x-hidden pb-10">
