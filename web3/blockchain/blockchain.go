@@ -41,6 +41,14 @@ func (blockchain *Blockchain) BuyEyes(email string, privateKey *ecdsa.PrivateKey
 	return block, err
 
 }
+func (blockchain *Blockchain) RedeemEyes(email string, privateKey *ecdsa.PrivateKey, eyes float64) (*Block, error) {
+	blockchain = validateBlock(blockchain)
+	PreviousBlock := blockchain.Blocks[len(blockchain.Blocks)-1]
+
+	block, err := RedeemEyesBlock(email, PreviousBlock.CurrHash, PreviousBlock.User, privateKey, eyes)
+	return block, err
+
+}
 
 func NewBlockchain() *Blockchain {
 	return &Blockchain{[]*Block{NewGenesisBlock()}}

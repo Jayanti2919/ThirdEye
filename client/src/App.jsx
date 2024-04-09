@@ -18,6 +18,7 @@ import Cookies from "js-cookie";
 import { authorizeCookie } from "./utils/cookies";
 import EditChannel from "./pages/EditChannel";
 import ViewVideo from "./pages/ViewVideo";
+import PaymentRedeem from "./pages/PaymentRedeem";
 
 export default function App() {
   const auth = GetAuthContext();
@@ -66,6 +67,10 @@ export default function App() {
         <Route
           path="/home/payments"
           element={auth ? <Payments /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/home/payments/redeem"
+          element={auth ? <PaymentRedeem /> : <Navigate to="/login" />}
         />
         <Route
           path="/home/uploadVideo"
